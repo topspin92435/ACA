@@ -1,0 +1,9 @@
+Version Log:
+
+a.12 - 12/18/16
+refactor- crafting list to show menu items
+
+
+a.11 - 11/27/16:
+refactor- item guid system to fix bugs where wrong/both items would be deleted
+fix- could only pick one procType item at a time

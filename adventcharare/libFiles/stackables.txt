@@ -1,0 +1,42 @@
+[	
+	{
+		"name": "stick",
+		"guid": "97765f0f-b7c5-4f9a-944e-5afedfe2de11"
+	},
+	{
+		"name": "rock",
+		"guid": "8f922763-6f40-4494-a597-ad610c15bc3c"
+	},
+	{
+		"name": "mud",
+		"guid": "0262742d-6b34-4c5a-8b3d-526373a43d5f"
+	},
+	{
+		"name": "tuber",
+		"guid": "94080109-92cf-413a-bcae-45fd7518c3aa"
+	},
+	{
+		"name": "wood",
+		"guid": "1cb987f6-dd92-45d0-a749-fdb6f42ae432"
+	},
+	{
+		"name": "soup",
+		"guid": "c073b472-2ab0-4536-87a2-7eae0680cdca"
+	},
+	{
+		"name": "apple",
+		"guid": "51760aa4-8563-4891-9583-1f8824f9cc6b"
+	},
+	{
+		"name": "charcoal",
+		"guid": "296a3938-030f-4947-821e-b7a33346c736"
+	},
+	{
+		"name": "iron ore",
+		"guid": "3d2a2a69-4e3d-4356-a381-089904b0c2a3"
+	},
+	{
+		"name": "iron bar",
+		"guid": "cae90487-0b6d-4420-8d42-cada38cce3ab"
+	}
+]

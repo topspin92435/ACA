@@ -1,0 +1,1 @@
+{"mud furnace":{"type":"furnace","size":1,"baseDur":80},"mud-brick furnace":{"type":"furnace","size":1,"baseDur":200}

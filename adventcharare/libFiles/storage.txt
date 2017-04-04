@@ -1,0 +1,304 @@
+{
+	"U1R2XKNKA": {
+		"id": "U1R2XKNKA",
+		"money": 4074,
+		"x": -14,
+		"y": 25,
+		"health": 1142,
+		"walked": 283,
+		"inventory": [
+			{
+				"name": "stick",
+				"count": 144
+			},
+			{
+				"name": "rock",
+				"count": 140
+			},
+			{
+				"name": "mud",
+				"count": 416
+			},
+			{
+				"name": "tuber",
+				"count": 0
+			},
+			{
+				"name": "wood",
+				"count": 632
+			},
+			{
+				"name": "soup",
+				"count": 0
+			},
+			{
+				"name": "charcoal",
+				"count": 7
+			},
+			{
+				"name": "iron ore",
+				"count": 5
+			},
+			{
+				"name": "iron bar",
+				"count": 0
+			},
+			{
+				"name": "stone shovel",
+				"count": 1,
+				"guid": "82860446-17d4-4753-baf0-db5fb67c37f5",
+				"procType": {
+					"type": "shovel",
+					"level": 1,
+					"durability": 30,
+					"quality": 100
+				}
+			},
+			{
+				"name": "stone shovel",
+				"count": 1,
+				"guid": "0c9ee88e-ecca-497f-9ba5-44a52c7ff7d7",
+				"procType": {
+					"type": "shovel",
+					"level": 1,
+					"durability": 30,
+					"quality": 100
+				}
+			}
+		],
+		"verbose": true,
+		"equiped": {
+			"weapon": "fist",
+			"damage": 1,
+			"reusable": true
+		},
+		"slackname": "lilwayne",
+		"name": "stupid",
+		"hunger": 271,
+		"home": {
+			"x": 24,
+			"y": -47
+		}
+	},
+	"U1R4HCPHT": {
+		"id": "U1R4HCPHT",
+		"money": 2441,
+		"x": -5,
+		"y": 17,
+		"health": 1223,
+		"walked": 328,
+		"inventory": [
+			{
+				"name": "stick",
+				"count": 109
+			},
+			{
+				"name": "rock",
+				"count": 146
+			},
+			{
+				"name": "tuber",
+				"count": 0
+			},
+			{
+				"name": "iron ore",
+				"count": 13
+			},
+			{
+				"name": "charcoal",
+				"count": 0
+			},
+			{
+				"name": "mud",
+				"count": 23
+			},
+			{
+				"name": "wood",
+				"count": 23
+			},
+			{
+				"name": "soup",
+				"count": 7
+			},
+			{
+				"name": "iron bar",
+				"count": 14
+			}
+		],
+		"verbose": true,
+		"equiped": {
+			"weapon": "fist",
+			"damage": 1,
+			"reusable": true
+		},
+		"slackname": "intrepid_leporid",
+		"lastDig": 839.31,
+		"hunger": 210,
+		"home": {
+			"x": -5,
+			"y": 16
+		}
+	},
+	"U1R4P3LQH": {
+		"id": "U1R4P3LQH",
+		"money": 3983,
+		"x": -50,
+		"y": 18,
+		"health": 2789,
+		"hunger": 106,
+		"walked": 374,
+		"inventory": [
+			{
+				"name": "stick",
+				"count": 44
+			},
+			{
+				"name": "rock",
+				"count": 91
+			},
+			{
+				"name": "wood",
+				"count": 2
+			},
+			{
+				"name": "soup",
+				"count": 0
+			},
+			{
+				"name": "mud",
+				"count": 65
+			},
+			{
+				"name": "tuber",
+				"count": 0
+			},
+			{
+				"name": "iron ore",
+				"count": 13
+			}
+		],
+		"verbose": true,
+		"equiped": {
+			"weapon": "fist",
+			"damage": 1,
+			"reusable": true
+		},
+		"slackname": "nogoat23",
+		"lastDig": 7163.092,
+		"name": "table"
+	},
+	"U1R39LEP4": {
+		"id": "U1R39LEP4",
+		"money": 3268,
+		"x": -7,
+		"y": 18,
+		"health": 511,
+		"hunger": 45,
+		"walked": 372,
+		"inventory": [
+			{
+				"name": "stick",
+				"count": 335
+			},
+			{
+				"name": "rock",
+				"count": 477
+			},
+			{
+				"name": "wood",
+				"count": 15
+			},
+			{
+				"name": "tuber",
+				"count": 0
+			},
+			{
+				"name": "mud",
+				"count": 23
+			},
+			{
+				"name": "soup",
+				"count": 3
+			},
+			{
+				"name": "iron ore",
+				"count": 10
+			}
+		],
+		"verbose": true,
+		"equiped": {
+			"weapon": "fist",
+			"damage": 1,
+			"reusable": true
+		},
+		"slackname": "dragon",
+		"inactive": false,
+		"home": {
+			"x": -1,
+			"y": 0
+		}
+	},
+	"U2ANBGAQ4": {
+		"id": "U2ANBGAQ4",
+		"money": 179,
+		"x": 47,
+		"y": -10,
+		"health": 100,
+		"hunger": 94,
+		"walked": 0,
+		"inventory": [
+			{
+				"name": "rock",
+				"count": 3
+			},
+			{
+				"name": "iron ore",
+				"count": 1
+			},
+			{
+				"name": "stick",
+				"count": 0
+			}
+		],
+		"verbose": true,
+		"equiped": {
+			"weapon": "fist",
+			"damage": 1,
+			"reusable": true
+		},
+		"slackname": "the_botanist"
+	},
+	"USLACKBOT": {
+		"id": "USLACKBOT",
+		"money": 123,
+		"x": 17,
+		"y": 38,
+		"health": 100,
+		"hunger": 100,
+		"walked": 0,
+		"inventory": [],
+		"verbose": true,
+		"equiped": {
+			"weapon": "fist",
+			"damage": 1,
+			"reusable": true
+		},
+		"slackname": "slackbot"
+	},
+	"U273XEU7Q": {
+		"id": "U273XEU7Q",
+		"money": 124,
+		"x": 7,
+		"y": 45,
+		"health": 100,
+		"walked": 0,
+		"inventory": [],
+		"verbose": true,
+		"equiped": {
+			"weapon": "fist",
+			"damage": 1,
+			"reusable": true
+		},
+		"slackname": "insulter-3000"
+	}
+}

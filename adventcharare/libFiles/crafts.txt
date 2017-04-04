@@ -1,0 +1,341 @@
+{
+	"mud pit": {
+		"procType": {
+			"type": "pit",
+			"level": 1,
+			"durability": 1,
+			"quality": 100
+		},
+		"ingredients": {
+			"mud": 6
+		},
+		"size": 1,
+		"time": 1,
+		"output": 1,
+		"menu": "processor"
+	},
+	"mud furnace": {
+		"procType": {
+			"type": "furnace",
+			"level": 1,
+			"durability": 200,
+			"quality": 100
+		},
+		"ingredients": {
+			"rock": 15,
+			"mud": 20
+		},
+		"size": 1,
+		"output": 1,
+		"time": 1,
+		"menu": "processor"
+	},
+	"mud-brick furnace": {
+		"procType": {
+			"type": "furnace",
+			"level": 2,
+			"durability": 200,
+			"quality": 100
+		},
+		"ingredients": {
+			"rock": 20,
+			"bricks": 30
+		},
+		"size": 1,
+		"output": 1,
+		"time": 1,
+		"menu": "processor"
+	},
+	"wood cook-pot": {
+		"procType": {
+			"type": "cook",
+			"level": 1,
+			"durability": 40,
+			"quality": 100
+		},
+		"procReq": {
+			"type": "chisel",
+			"level": 1
+		},
+		"ingredients": {
+			"wood": 5
+		},
+		"size": 1,
+		"output": 1,
+		"time": 1,
+		"menu": "processor"
+	},
+	"charcoal": {
+		"procReq": {
+			"type": "pit",
+			"level": 1
+		},
+		"ingredients": {
+			"wood": 6,
+			"mud": 10
+		},
+		"output": 10,
+		"time": 2,
+		"damage": 4,
+		"heal": -60,
+		"reusable": false,
+		"menu": "ingredients"
+	},
+	"brick": {
+		"procReq": {
+			"type": "furnace",
+			"level": 1
+		},
+		"ingredients": {
+			"sticks": 2,
+			"mud": 3
+		},
+		"output": 1,
+		"time": 3,
+		"damage": 8,
+		"heal": -20,
+		"reusable": false,
+		"menu": "ingredients"
+	},
+	"iron bar": {
+		"procReq": {
+			"type": "furnace",
+			"level": 1
+		},
+		"ingredients": {
+			"iron ore": 3,
+			"charcoal": 3
+		},
+		"output": 1,
+		"time": 8,
+		"damage": 5,
+		"heal": -50,
+		"reusable": true,
+		"menu": "ingredients"
+	},
+	"stone shovel": {
+		"procType": {
+			"type": "shovel",
+			"level": 1,
+			"durability": 30,
+			"quality": 100
+		},
+		"ingredients": {
+			"stick": 3,
+			"rock": 5
+		},
+		"output": 1,
+		"time": 1,
+		"damage": 4,
+		"heal": -100,
+		"reusable": true,
+		"menu": "tool"
+	},
+	"stone hatchet": {
+		"procType": {
+			"type": "axe",
+			"level": 1,
+			"durability": 30,
+			"quality": 100
+		},
+		"ingredients": {
+			"stick": 3,
+			"rock": 7
+		},
+		"output": 1,
+		"time": 1,
+		"damage": 4,
+		"heal": -100,
+		"reusable": true,
+		"menu": "tool"
+	},
+	"stone pickaxe": {
+		"procType": {
+			"type": "pickaxe",
+			"level": 1,
+			"durability": 30,
+			"quality": 100
+		},
+		"ingredients": {
+			"stick": 4,
+			"rock": 8
+		},
+		"output": 1,
+		"time": 1,
+		"damage": 4,
+		"heal": -100,
+		"reusable": true,
+		"menu": "tool"
+	},
+	"iron shovel": {
+		"procType": {
+			"type": "shovel",
+			"level": 2,
+			"durability": 120,
+			"quality": 100
+		},
+		"ingredients": {
+			"wood": 2,
+			"iron bar": 2
+		},
+		"output": 1,
+		"time": 1,
+		"damage": 2,
+		"heal": -100,
+		"reusable": true,
+		"menu": "tool"
+	},
+	"iron axe": {
+		"procType": {
+			"type": "axe",
+			"level": 2,
+			"durability": 120,
+			"quality": 100
+		},
+		"ingredients": {
+			"wood": 2,
+			"iron bar": 3
+		},
+		"output": 1,
+		"time": 1,
+		"damage": 4,
+		"heal": -100,
+		"reusable": true,
+		"menu": "tool"
+	},
+	"iron pickaxe": {
+		"procType": {
+			"type": "pickaxe",
+			"level": 2,
+			"durability": 120,
+			"quality": 100
+		},
+		"ingredients": {
+			"wood": 2,
+			"iron bar": 4
+		},
+		"output": 1,
+		"time": 1,
+		"damage": 4,
+		"heal": -100,
+		"reusable": true,
+		"menu": "tool"
+	},
+	"iron hammer": {
+		"procType": {
+			"type": "hammer",
+			"level": 2,
+			"durability": 120,
+			"quality": 100
+		},
+		"ingredients": {
+			"wood": 4,
+			"iron bar": 4
+		},
+		"output": 1,
+		"time": 1,
+		"damage": 12,
+		"heal": -100,
+		"reusable": true,
+		"menu": "tool"
+	},
+	"iron sword": {
+		"ingredients": {
+			"wood": 3,
+			"iron bar": 5
+		},
+		"output": 1,
+		"time": 1,
+		"damage": 20,
+		"heal": -100,
+		"reusable": true,
+		"menu": "weapon"
+	},
+	"wood chisel": {
+		"procType": {
+			"type": "chisel",
+			"level": 1,
+			"durability": 40,
+			"quality": 100
+		},
+		"ingredients": {
+			"wood": 2,
+			"rock": 2
+		},
+		"output": 1,
+		"time": 1,
+		"damage": 2,
+		"heal": -23,
+		"reusable": true,
+		"menu": "crafting"
+	},
+	"iron chisel": {
+		"procType": {
+			"type": "chisel",
+			"level": 2,
+			"durability": 80,
+			"quality": 100
+		},
+		"ingredients": {
+			"wood": 3,
+			"iron": 3
+		},
+		"output": 1,
+		"time": 1,
+		"damage": 4,
+		"heal": -23,
+		"reusable": true,
+		"menu": "crafting"
+	},
+	"cooked apple": {
+		"procReq": {
+			"type": "cook",
+			"level": 1
+		},
+		"ingredients": {
+			"apples": 1
+		},
+		"output": 1,
+		"time": 2
+	},
+	"soup": {
+		"procReq": {
+			"type": "cook",
+			"level": 1
+		},
+		"ingredients": {
+			"tuber": 2
+		},
+		"output": 1,
+		"time": 3,
+		"menu": "food"
+	},
+	"cabin": {
+		"procReq": {
+			"type": "chisel",
+			"level": 2
+		},
+		"ingredients": {
+			"wood": 20,
+			"iron": 10
+		},
+		"size": 1,
+		"output": 1,
+		"time": 1,
+		"menu": "building"
+	},
+	"wood path": {
+		"procReq": {
+			"type": "chisel",
+			"level": 2
+		},
+		"ingredients": {
+			"wood": 10,
+			"rock": 10
+		},
+		"size": 1,
+		"output": 1,
+		"time": 1,
+		"menu": "building"
+	}
+}
