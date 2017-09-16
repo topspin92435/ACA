@@ -10,26 +10,26 @@ This is a sample Slack bot built with Botkit.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 
-var Botkit = require('../node_modules/botkit/lib/Botkit.js');
+var Botkit = require("../lib/Botkit.js");
 var os = require('os');
 var _ = require('lodash');
 var uuid = require('node-uuid');
-//var Promise = require('promise');
+var tok = require("../token.js");
 
 controller = Botkit.slackbot({
     debug: false
 });
 bot = controller.spawn({
-    token: 'xoxb-74107224273-qTN33xkb2R9zy9bG5g1lMkSt'
+    token: tok.getTok()
 }).startRTM();
 
+var library = [], listeners = {};
 setup = require("./listeners.js");
 sys = require("./sys.js");
 util = require("./util.js");
 grammar = require("./grammar.js");
 root = 'libFiles';
 
-var library = [], listeners = {};
 map = util.readMap('map3');
 usermap = sys.loadJSON('usermap');
 noun = sys.loadJSON('noun');
@@ -44,12 +44,14 @@ libTools = sys.loadJSON('tools');
 libParts = sys.loadJSON('parts');
 linsibMonsters = sys.loadJSON('monsters');
 libCrafts = sys.loadJSON('crafts');
-storage = sys.loadJSON('storage');
+//libPlants = sys.loadJSON('plants');
 plurals = sys.loadJSON('plurals');
 library = sys.loadJSON('library');
 craftQue = sys.loadJSON('craftQue');
 monsterQue = sys.loadJSON('monsterQue');
 buildmap = sys.loadJSON('buildmap');
+
+
 
 listeners.hello = function(bot, message) {
 	var user = util.createUser(message.user);
@@ -88,6 +90,16 @@ var loadDependantListeners = function() {
 }
 
 loadDependantListeners();
+
+
+var getCords = function (y,x) {
+	return (y + height) + '-' + (x + width);
+}
+
+var getGround = function(user) {
+	return buildmap[getCords(user.y, user.x)].ground;
+}
+
 
 var getItemGuidFromName = function (inventory, name) {
 	for (var i in inventory) 
@@ -224,65 +236,12 @@ var getCount = function(toBuy) {
 }
 
 var dropStuff = function(user) {
-	myground = buildmap[(user.y+height)+'-'+(user.x+width)].ground;
-	transferInventory(myground, user.inventory)
+	var ground = getGround(user);
+	transferInventory(ground, user.inventory)
 	sys.saveJson('buildmap', buildmap);
 	util.saveUser(user.id, storage[user.id]);
 }
 
-/*
-var buyItem = function(usr, msg, toBuy, cnt, lib) {
-	if (lib[toBuy]) {
-		if (usr.money >= lib[toBuy].cost * cnt) {
-			if(!usr.inventory[toBuy])
-				usr.inventory[toBuy] = 0;
-			usr.inventory[toBuy] += cnt
-			usr.money -= lib[toBuy].cost * cnt;
-			util.smartReply(msg, 'Hurray you bought ' + cnt + ' ' + (cnt > 1 ? grammar.singularToPlural(toBuy) : toBuy) + '! You now have ' + usr.inventory[toBuy] + ' ' + (usr.inventory[toBuy] > 1 ? grammar.singularToPlural(toBuy) : toBuy) +' and ' + usr.money + ' ' + sys.libRng(library.money) + '!');
-			return true;
-		} else {
-			var reply = 'You think I would take ' + usr.money + ' for ';
-			reply += (cnt > 1) ? ((lib[toBuy].cost * cnt) + ' ' + sys.libRng(library.money) + ' worth of ' + grammar.singularToPlural(toBuy)) : ('a ' + origonal + ' worth ' + (lib[toBuy].cost * cnt) + ' ' + sys.libRng(library.money));
-			reply += '?! Come back when youre not a broke ' + sys.libRng(library.insultNoun)+'!';
-			util.smartReply(msg, reply);
-			return true;
-		}
-	}
-	return false;
-}
-
-controller.hears(['\\bbuy (.*)','\\bbuy me (.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
-	var purchase = grammar.parseAAn(message.match[1]);
-	var user = util.createUser(message.user);	
-	var count = 1;
-		
-	if (parseInt(purchase) > 0) {
-		count = parseInt(purchase);
-		count = count > 0 ? count : 0;
-		var split = purchase.split(" ");
-		if (split.length > 0) {
-			purchase = split[1];
-		}
-	}
-	if (purchase.length < 15) {
-		if (checkTile(user,'C')) {
-			if (buyItem(user, message, purchase, count, libWeapons)) {
-				return 1;
-			} else if (buyItem(user, message, purchase, count, libFood)) {
-				return 1;
-			} else if (buyItem(user, message, purchase, count, libTools)) {
-				return 1;
-			} else if (buyItem(user, message, purchase, count, libParts)) {
-				return 1;
-			} else {
-				util.smartReply(message, 'I dont have ' + (grammar.checkPlural(purchase) ? purchase : grammar.singularToPlural(purchase)) + ' silly!');
-			}
-		} else {
-			util.smartReply(message, 'You realize it might be hard to buy'+ (count == 1 ? ' a ':' ') + purchase + ' out in the wilderness');
-		}
-	}
-	util.saveUser(message.user, storage[message.user]);
-});*/
 
 var updateUserMap = function(user, size) {
 	if(!usermap[user.id]) {
@@ -297,7 +256,7 @@ var updateUserMap = function(user, size) {
 	
 	for (var y = size * 2 ; y >= 0; y--) {
 		for (var x = 0; x < size * 2 + 1; x++) {
-			usermap[user.id][user.y+50+y-size][user.x+50+x-size] = map[user.y+50+y-size][user.x+50+x-size];
+			usermap[user.id][user.y+height+y-size][user.x+width+x-size] = map[user.y+height+y-size][user.x+width+x-size];
 		}
 	}
 	sys.saveJson('usermap', usermap);
@@ -424,28 +383,6 @@ controller.hears(['check crafts(.*)'], 'ambient,direct_message,direct_mention,me
 });
 
 
-
-/*
-controller.hears(['check goods'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
-	var user = util.createUser(message.user);	
-	
-	if (checkTile(user,'C')) {
-		var reply = 'Heres what we have today!\r\n';
-		reply += '--food--\r\n';
-		reply += addToList(libFood);
-		reply += '--weapons--\r\n';
-		reply += addToList(libWeapons);
-		reply += '--tools--\r\n';
-		reply += addToList(libTools);
-		reply += '--building--\r\n';
-		reply += addToList(libParts);
-		util.smartReply(message, reply);
-	} else {
-		util.smartReply(message, 'You realize it might be hard to buy things out in the wilderness');
-	}
-});*/
-
-
 var checkBounds = function(direction, user) {
 	if (sys.libCheck(library.north, direction)) {
 		return user.y < height;
@@ -506,7 +443,7 @@ controller.hears(['\\blook\\b','\\bmove(.*)'], 'ambient,direct_message,direct_me
 		util.resetUser(user.id);;
 		
 	} else if (user.verbose) {
-		var myground = buildmap[(user.y+height)+'-'+(user.x+width)].ground;
+		var myground = getGround(user);
 		msg += 'You look around and see ';
 		switch (map[user.y + height][user.x + width]) {
 			case '0':
@@ -583,7 +520,7 @@ controller.hears(['set home'],'ambient,direct_message,direct_mention,mention', f
 	util.smartReply(message,'You feel a growing sense of warmth as you find home');
 });
 
-controller.hears(['find (.*)','call (.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['find (.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
     var person = grammar.parseAAn(message.match[1]);
 	var msg = '';
 	var user = util.createUser(message.user);
@@ -672,7 +609,7 @@ controller.hears(['drop (.*)'], 'ambient,direct_message,direct_mention,mention',
 	if (count >= 1 && getInventoryItemCount(user.inventory, item) > 0) {
 		util.smartReply(message, 'You accidentally drop '+ (count > 1 ? (count +' of your ' + grammar.singularToPlural(item)):('your ' + item )) + ', but thankfully nobody noticed');
 		var guid = getItemGuidFromName(user.inventory, item);
-		transferItem(buildmap[(user.y + height) + '-' + (user.x + width)].ground, user.inventory, {name: item, guid: guid, count:count});
+		transferItem(getGround(user), user.inventory, {name: item, guid: guid, count:count});
 		if (user.equiped.guid && user.equiped.guid == guid) {
 			user.equiped = {
 				weapon: 'fist',
@@ -691,9 +628,9 @@ controller.hears(['smash (.*)'], 'ambient,direct_message,direct_mention,mention'
 	var user = util.createUser(message.user);
 	
 	if (user.equiped.procType == 'hammer') {
-		if(buildmap[(user.y + height) + '-' + (user.x + width)].building.name == item) {
+		if(buildmap[getCords(user.y,user.x, height,width)].building.name == item) {
 			util.smartReply(message, 'You bring your '+ user.equiped.weapon +' thundering down upon the unsuspecting ' + item + ', smashing it to pieces' );
-			buildmap[(user.y + height) + '-' + (user.x + width)].building = {};
+			buildmap[getCords(user.y,user.x, height,width)].building = {};
 			sys.saveJson('buildmap', buildmap);
 			
 			if (removeItemDurability(user.inventory,{name:user.equiped.weapon}, sys.rng(4,5)) <= 0) {
@@ -766,7 +703,7 @@ controller.hears(['fight (.*)','attack (.*)'], 'ambient,direct_message,direct_me
 
 var checkBuildMapProc = function(x,y,process,level) {
 	if (checkBounds(x,y)) {
-		var cords = (y + height) + '-' + (x + width);
+		var cords = getCords(y,x,height,width);
 		building = buildmap[cords].building;
 
 		if (building.procType)
@@ -792,9 +729,9 @@ controller.hears(['\\bcraft (.*)\\b'], 'ambient,direct_message,direct_mention,me
 	}
 	
 	// Check space free
-	var mybuilding = buildmap[(user.y + height) + '-' + (user.x + width)].building;
+	var mybuilding = buildmap[getCords(user.y,user.x, height,width)].building;
 	if (mybuilding.name && libCrafts[toCraft].size && libCrafts[toCraft].size > 0) {
-		util.smartReply(message, 'It might be a bit crowded here with the '+ buildmap[(user.y + height) + '-' + (user.x + width)].building.item +' and all');	
+		util.smartReply(message, 'It might be a bit crowded here with the '+ buildmap[getCords(user.y,user.x, height,width)].building.item +' and all');	
 		return 1;
 	}
 
@@ -815,7 +752,7 @@ controller.hears(['\\bcraft (.*)\\b'], 'ambient,direct_message,direct_mention,me
 
 	// Add building
 	if (libCrafts[toCraft].size > 0) {
-		 buildmap[(user.y + height) + '-' + (user.x + width)].building = {
+		 buildmap[getCords(user.y,user.x, height,width)].building = {
 			name: toCraft,
 			procType: libCrafts[toCraft].procType
 		};
@@ -823,7 +760,7 @@ controller.hears(['\\bcraft (.*)\\b'], 'ambient,direct_message,direct_mention,me
 		
 	// Add to crafting que
 	} else if (libCrafts[toCraft].time > 1) {
-		if (!buildmap[(user.y + height) + '-' + (user.x + width)].building.procType.inUse) {
+		if (!buildmap[getCords(user.y,user.x, height,width)].building.procType.inUse) {
 			var newCraft = {
 				x: user.x + width,
 				y: user.y + height,
@@ -838,11 +775,11 @@ controller.hears(['\\bcraft (.*)\\b'], 'ambient,direct_message,direct_mention,me
 				newCraft.procType = libCrafts[toCraft].procType;
 		    newCraft.durability = -sys.rng(2,3);
 			console.log(newCraft);
-			buildmap[(user.y + height) + '-' + (user.x + width)].building.procType.inUse = true;
+			buildmap[getCords(user.y,user.x, height,width)].building.procType.inUse = true;
 			sys.saveJson('buildmap', buildmap);
 			craftQue.push(newCraft);
 		} else {
-			util.smartReply(message, 'Your ' + buildmap[(user.y + height) + '-' + (user.x + width)].building.name + ' seems to be in use');
+			util.smartReply(message, 'Your ' + buildmap[getCords(user.y,user.x, height,width)].building.name + ' seems to be in use');
 			return 1;
 		}
 			
@@ -874,7 +811,7 @@ controller.hears(['\\bcraft (.*)\\b'], 'ambient,direct_message,direct_mention,me
 controller.hears(['\\bsearch\\b','\\bforage\\b', '\\btake\\b'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
 
 	var user = util.createUser(message.user);
-	var myground = buildmap[(user.y+height)+'-'+(user.x+width)].ground;
+	var myground = getCords(user);
 	var found = 0;
 	
 	if (myground.length > 0) {
@@ -929,196 +866,31 @@ var checkEquipProc = function(user, type) {
 	return libCrafts[user.equiped.weapon] && libCrafts[user.equiped.weapon].procType && libCrafts[user.equiped.weapon].procType.type == type;
 }
 
-controller.hears(['\\bchop\\b','\\bchop trees\\b'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
-	var user = util.createUser(message.user);
-	var tile = checkTile(user);
-	var msg = '';
-	var finalmsg;
-	var toFindCount = {};
-	hunger = sys.rng(8,10);
-	
-	var wood = sys.rng(50,100) * (tile == 1 ?  2: 1);
-	
-	if (checkEquipProc(user, 'axe')) {
-		wood *= 3;
-		finalmsg = useEquipedItem(user, sys.rng(2,3));
+
+/*
+controller.hears(['\\bplant tuber\\b'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+	var newCraft = {
+		x: user.x + width,
+		y: user.y + height,
+		message: message,
+		item: {
+			name: toCraft,
+			count: libCrafts[toCraft].output,
+		},
+		countdown: libCrafts[toCraft].time * 60
 	}
-	
-	wood = Math.floor(wood/90);
-	
-	if (wood > 0)
-		toFindCount['wood'] =  wood;
-	
-	
-	toFind = Object.keys(toFindCount);
-	
-	if (wood > 0) {
-		var msg = 'You thrust greatly at the tree with your mighty ' + user.equiped.weapon + ' and find ' + wood + ' wood';
-		msg += ' but lose ';
-	
-	} else {
-		msg += 'You ' + user.equiped.weapon + ' uselessly at a stuborn tree and lose ';
-	}
-	user.hunger -= hunger;
-	user.hunger = user.hunger > 0 ? user.hunger : 0;
-	msg += hunger + ' points of hunger. You find you have ' + user.hunger + ' points left';
-	addToInventory(user.inventory, {name:'wood', count: wood});
-	util.smartReply(message, msg);
-	
-	
-	console.log(user.slackname + ' chops ('+user.x+':'+user.y+')')
-	
-	if (user.hunger <= 0) {
-		msg = 'Oh no! You\'ve starved to death :rip:';
-		dropStuff(user);
-		util.resetUser(user.id);
-		util.smartReply(message, msg);
-		console.log(user.slackname + ' dies ('+user.x+':'+user.y+')')
-		
-	} else if (finalmsg) {
-		util.smartReply(message, finalmsg);
-	}
-	
-	util.saveUser(message.user, storage[message.user]);
-});
+	if (libCrafts[toCraft].procType)
+		newCraft.procType = libCrafts[toCraft].procType;
+	newCraft.durability = -sys.rng(2,3);
+	console.log(newCraft);
+	buildmap[getCords(user.y,user.x, height,width)].building.procType.inUse = true;
+	sys.saveJson('buildmap', buildmap);
+	craftQue.push(newCraft);
+}*/
 
 
-
-controller.hears(['\\bdig\\b'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
-	var user = util.createUser(message.user);
-	var tile = checkTile(user);
-	var msg = '';
-	var finalmsg;
-	var toFindCount = {};
-	hunger = sys.rng(4,6);
-	
-	var mud = sys.rng(1,100) * (tile == 3 ? 4 : 1);
-	var tuber = sys.rng(1,100) * (tile == 1 ? 4 : 1);
-	var rock = sys.rng(1,100) * (tile == 2 ? 2 : 1);
-	var iron = sys.rng(1,100) * (tile == 2 ? 3 : 1)
-	
-	if (checkEquipProc(user, 'shovel')) {
-		hunger -= (user.equiped.procLevel * 2);
-		if ( hunger < 0 )
-			hunger = 0;
-		mud *= 2;
-		tuber *= 2;
-		finalmsg = useEquipedItem(user, sys.rng(2,3));
-	} else if (checkEquipProc(user, 'pickaxe')) {
-		if ( hunger < 0 )
-			hunger = 0;
-		rock += (10 * user.equiped.procLevel);
-		iron += (15 * user.equiped.procLevel);
-		finalmsg = useEquipedItem(user, sys.rng(2,3));
-	}
-	
-	mud = Math.floor(mud/80);
-	rock = Math.floor(rock/50);
-	tuber = Math.floor(tuber/50);
-	iron = Math.floor(iron/70);
-	
-	if (mud > 0)
-		toFindCount['mud'] =  mud;
-	if (rock > 0)
-		toFindCount['rock'] =  rock;
-	if (tuber > 0)
-		toFindCount['tuber'] =  tuber;
-	if (iron > 0)
-		toFindCount['iron ore'] =  iron;
-	
-	
-	toFind = Object.keys(toFindCount);
-	
-	if (mud + rock + tuber + iron > 0) {
-		var found = 0;
-		var addMsg = '';
-		for (var i in toFind) {
-			found ++;
-			addMsg += toFindCount[toFind[i]] + ' ' + (toFindCount[toFind[i]] > 1 ? grammar.singularToPlural(toFind[i]) : toFind[i]) + ', ';
-			addToInventory(user.inventory, {name: toFind[i], count: toFindCount[toFind[i]]});
-		}
-		
-		
-		if (found >= 1 ) {
-			var msg = 'You break the ground with all the migth behind your trusty ' + user.equiped.weapon + ' and find ' + addMsg;
-			msg = msg.substr(0,msg.length - 2);
-			if (found > 1)
-				msg = msg.replace(/,(?=[^,]*$)/, ' and');
-		}
-		
-		msg += ' but lose ';
-	
-	} else {
-		msg += 'You pound your ' + user.equiped.weapon + ' uselessly at the ground and lose ';
-	}
-	user.hunger -= hunger;
-	user.hunger = user.hunger > 0 ? user.hunger : 0;
-	msg += hunger + ' points of hunger. You find you have ' + user.hunger + ' points left';
-	util.smartReply(message, msg);
-	
-	if (user.hunger <= 0) {
-		msg = 'Oh no! You\'ve starved to death :rip:';
-		dropStuff(user);
-		util.resetUser(user.id);
-		util.smartReply(message, msg);
-		console.log(user.slackname + ' dies ('+user.x+':'+user.y+')');
-		
-	} else if (finalmsg) {
-		util.smartReply(message, finalmsg);
-	}
-	console.log(user.slackname + ' digs ('+user.x+':'+user.y+')')
-	util.saveUser(message.user, storage[message.user]);
-});
-
-
-controller.hears(['check money'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
-
-	var user= util.createUser(message.user);
-
-	util.smartReply(message, 'You got ' + user.money + ' '+sys.libRng(library.money)+'!');	
-});
-
-controller.hears(['give me (.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
-    /*var money = grammar.parseAAn(message.match[1]);
-	user= util.createUser(message.user);
-	if (isNaN(user.money))
-		user.money = 0;
-	var toGain = parseInt(money) 
-	if (isNaN(toGain))
-		util.smartReply(message, 'Sadly I have lost all of my ' + money + ' ' + sys.sys.libRng(library.money) + ' D:');
-	else if (toGain > 10000 || toGain < -10000)
-		util.smartReply(message, 'I aint got that kinda money D:');	
-	else {
-		user.money += toGain;
-
-		util.smartReply(message, 'Got it. I will give you ' + toGain + ' '+ sys.sys.libRng(library.money) +'!');
-
-		util.smartReply(message, user.name + ', you now have ' + user.money + ' '+ sys.sys.libRng(library.money) +'!');
-
-	}
-	util.saveUser(message.user, storage[message.user]);*/
-	util.smartReply(message, 'I aint got that kinda money D:');	
-});
-
-controller.hears(['insult (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
-	var person = grammar.parseAAn(message.match[1]);
-	
-	user = util.createUser(message.user);
-	if(person == 'someone' ) {
-		var randId = Object.keys(storage)[sys.rng(0, Object.keys(storage).length-1)];
-		var slackname = storage[randId] ? storage[randId].slackname : "my boy";
-
-		bot.reply(message, slackname + ' is a ' + sys.libRng(library.insultAdj) + ' ' + sys.libRng(library.insultNoun) + '!');
-	} else {
-		person = grammar.parseAAn(person);
-		person = grammar.checkPlural(person) ? person : grammar.singularToPlural(person);
-		bot.reply(message, person + ' are wankers!');
-	}
-
-});
 
 var eatItem = function(usr, msg, toEat, cnt, lib) {
-
 	if (lib[toEat]) {
 		var guid = getItemGuidFromName(usr, toEat);
 		if (getInventoryItemCount(usr.inventory, toEat)) {
@@ -1184,7 +956,7 @@ controller.hears(['\\beat (.*)', '\\beat my (.*)'], 'ambient,direct_message,dire
 	}
 });
 
-controller.hears(['call me (.*)', 'my name is (.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['call me (.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
     var name = message.match[1];
 	user = util.createUser(message.user);
 	
@@ -1192,196 +964,6 @@ controller.hears(['call me (.*)', 'my name is (.*)'], 'ambient,direct_message,di
 	util.saveUser(message.user, storage[message.user]);
 	util.smartReply(message, 'Got it. I will call you ' + name + ' from now on.');
 
-});
-
-controller.hears(['what is my name', 'who am i'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
-
-    controller.storage.users.get(message.user, function(err, user) {
-        if (user && user.name) {
-            util.smartReply(message, 'Your name is ' + user.name);
-        } else {
-            bot.startConversation(message, function(err, convo) {
-                if (!err) {
-                    convo.say('I do not know your name yet!');
-                    convo.ask('What should I call you?', function(response, convo) {
-                        convo.ask('You want me to call you `' + response.text + '`?', [
-                            {
-                                pattern: 'yes',
-                                callback: function(response, convo) {
-                                    // since no further messages are queued after this,
-                                    // the conversation will end naturally with status == 'completed'
-                                    convo.next();
-                                }
-                            },
-                            {
-                                pattern: 'no',
-                                callback: function(response, convo) {
-                                    // stop the conversation. this will cause it to end with status == 'stopped'
-                                    convo.stop();
-                                }
-                            },
-                            {
-                                default: true,
-                                callback: function(response, convo) {
-                                    convo.repeat();
-                                    convo.next();
-                                }
-                            }
-                        ]);
-
-                        convo.next();
-
-                    }, {'key': 'nickname'}); // store the results in a field called nickname
-
-                    convo.on('end', function(convo) {
-                        if (convo.status == 'completed') {
-                            util.smartReply(message, 'OK! I will update my dossier...');
-
-                            controller.storage.users.get(message.user, function(err, user) {
-                                if (!user) {
-                                    user = {
-                                        id: message.user,
-                                    };
-                                }
-                                user.name = convo.extractResponse('nickname');
-                                controller.storage.users.save(user, function(err, id) {
-                                    util.smartReply(message, 'Got it. I will call you ' + user.name + ' from now on.');
-                                });
-                            });
-
-
-
-                        } else {
-                            // this happens if the conversation ended prematurely for some reason
-                            util.smartReply(message, 'OK, nevermind!');
-                        }
-                    });
-                }
-            });
-        }
-    });
-});
-
-
-controller.hears(['shutdown'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
-
-    bot.startConversation(message, function(err, convo) {
-
-        convo.ask('Are you sure you want me to shutdown?', [
-            {
-                pattern: bot.utterances.yes,
-                callback: function(response, convo) {
-                    convo.say('Bye!');
-                    convo.next();
-                    setTimeout(function() {
-                        process.exit();
-                    }, 3000);
-                }
-            },
-        {
-            pattern: bot.utterances.no,
-            default: true,
-            callback: function(response, convo) {
-                convo.say('*Phew!*');
-                convo.next();
-            }
-        }
-        ]);
-    });
-});
-
-
-controller.hears(['uptime', 'identify yourself', 'who are you', 'what is your name'],
-    'ambient,direct_message,direct_mention,mention', function(bot, message) {
-
-        var hostname = os.hostname();
-        var uptime = formatUptime(process.uptime());
-
-        util.smartReply(message,
-            ':robot_face: I am a bot named <@' + bot.identity.name +
-             '>. I have been running for ' + uptime + ' on ' + hostname + '.');
-
-    });
-
-function formatUptime(uptime) {
-    var unit = 'second';
-    if (uptime > 60) {
-        uptime = uptime / 60;
-        unit = 'minute';
-    }
-    if (uptime > 60) {
-        uptime = uptime / 60;
-        unit = 'hour';
-    }
-    if (uptime != 1) {
-        unit = unit + 's';
-    }
-
-    uptime = uptime + ' ' + unit;
-    return uptime;
-}
-
-controller.hears(['such (.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
-
-	util.smartReply(message, 'much wow');
-});
-
-controller.hears(['dict (.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
-	var word = message.match[1];
-	if (parseInt(ref[word]) > 0) {
-		require('fs').readFile('heads/head'+ ref[word] +'.txt', 'ascii', function (err,data) {
-			if (err) {
-				console.log("Error: Storage failed to load");
-				process.exit(1);
-			}
-			util.smartReply(message, data.toString());
-		
-		});
-	}
-});
-
-
-controller.hears(['check (.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
-	var word = message.match[1];
-	
-	
-	if (adj[word] || _.invert(adj)[word])
-		util.smartReply(message, 'adj - ' + (adj[word] ? adj[word] : word ));
-	else if (adv[word] || _.invert(adv)[word])
-		util.smartReply(message, 'adv - ' + (adv[word] ? adv[word] : word ));
-	else if (noun[word] || _.invert(noun)[word])
-		util.smartReply(message, 'noun - ' + (noun[word] ? noun[word] : word ));
-	else if (verb[word] || _.invert(verb)[word])
-		util.smartReply(message, 'verb - ' + (verb[word] ? verb[word] : word));
-	else
-		util.smartReply(message, word + ' aint no thang');
-});
-
-	
-controller.hears(['heyo'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
-	
-	util.smartReply(message, 'http://www.hiyoooo.com/');
-});
-
-
-controller.hears(['may is lame'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
-	util.smartReply(message, 'true');
-});
-
-controller.hears(['\\bim (.*)',"\\bi'm (.*)", '\\bi am (.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
-	var user = util.createUser(message.user);
-	
-	var person = message.match[1];
-	person = grammar.parseAAn(person);
-	
-	if (user.name == 'dad')
-		util.smartReply(message, 'hi dad');
-	
-	else if (person == 'dad' || person == 'Dad')
-		util.smartReply(message, 'no _im_ dad');
-	
-	else if (!person.match(/\w*ing\b/) && person.length < 20)
-		util.smartReply(message, 'Hello ' + person + ', im dad');
 });
 
 
@@ -1412,4 +994,4 @@ controller.tick = function() {
 			sys.saveJson('craftQue',craftQue);
 		}
 	}
-}
+};
