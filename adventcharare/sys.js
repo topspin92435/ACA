@@ -43,7 +43,7 @@ module.exports = {
 			}
 		} catch (err) {
 			console.log("ERROR: " + filename + " failed to load");
-				console.log(err.toString());
+				console.log(err);
 			process.exit(-1);
 		}
 	}

@@ -1,0 +1,4 @@
+item Id's to prevent overlap
+numbered inventory
+chisten areas
+houses that do stuff

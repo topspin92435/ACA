@@ -73,28 +73,28 @@ module.exports = {
 		return mapStr;
 	},
 	saveUser: function (userId, user) {
-		storage[userId] = user;
+		datastore[userId] = user;
 		var fs = require('fs');
-		var stream = fs.createWriteStream("libFiles/storage.txt");
+		var stream = fs.createWriteStream("libFiles/datastore.txt");
 		stream.once('open', function(fd) {
 			
-			var str = JSON.stringify(storage, null, '\t');
+			var str = JSON.stringify(datastore, null, '\t');
 			stream.write(str);
 			stream.end();
 			
 		});
 	}, 
 	smartReply: function(message, string) {
-		if (!storage[message.user])
-			storage[message.user] = {};
-		storage[message.user].money += sys.rng(2,3);
-		if (!storage[message.user].inactive)
+		if (!datastore[message.user])
+			datastore[message.user] = {};
+		datastore[message.user].money += sys.rng(2,3);
+		if (!datastore[message.user].inactive)
 			bot.reply(message, string);
-		util.saveUser(message.user, storage[message.user]);
+		util.saveUser(message.user, datastore[message.user]);
 	},
 	getUserByName: function (name) {
-		for (var i in storage) {
-			var user = storage[i];	
+		for (var i in datastore) {
+			var user = datastore[i];	
 			if (user && ((user.slackname && user.slackname.toLowerCase() == name.toLowerCase()) || (user.name && user.name.toLowerCase() == name.toLowerCase())))
 				return user;
 			
@@ -102,8 +102,8 @@ module.exports = {
 		return null;	
 	},
 	createUser: function(usr) {
-		if (!storage[usr] ) {
-			storage[usr] = {
+		if (!datastore[usr] ) {
+			datastore[usr] = {
 				id: usr,
 				money: 120,
 				x: sys.rng(0,100) - 50,
@@ -120,14 +120,14 @@ module.exports = {
 				}
 			};
 			bot.api.users.info({user:usr}, function(err, data) {
-				storage[data.user.id].slackname = data.user.name;
-				util.saveUser(usr, storage[usr])
+				datastore[data.user.id].slackname = data.user.name;
+				util.saveUser(usr, datastore[usr])
 			});
 		}
-		return storage[usr];
+		return datastore[usr];
 	},
 	resetUser: function(usr) {
-		storage[usr].equiped = {
+		datastore[usr].equiped = {
 			weapon: 'fist',
 			damage: 1,
 			reusable: true
@@ -139,6 +139,10 @@ module.exports = {
 		storage[usr].hunger= 100;
 		util.saveUser(usr, storage[usr])
 		return storage[usr];
+	},
+    countup: function(arr, item, val) {
+		val = val ? val : 1;
+		arr[item] = arr[item] ? arr[item] + val: val;
 	}
 
 }
