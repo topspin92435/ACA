@@ -1,5 +1,7 @@
 module.exports = {
 	parseAAn: function (str) {
+		if (!str)
+			return "";
 		str = str.replace(/[.,\/#!$%\^&\*;:{}=\`~()]/g,"").trim();
 		var temp;
 		if (str.match(/^an\s/)) {
@@ -12,6 +14,14 @@ module.exports = {
 		} 
 		if (str.match(/^the\s/)){
 			temp = str.split("the ");
+			str = temp[temp.length - 1];
+		}
+		if (str.match(/^my\s/)){
+			temp = str.split("my ");
+			str = temp[temp.length - 1];
+		}
+		if (str.match(/^your\s/)){
+			temp = str.split("your ");
 			str = temp[temp.length - 1];
 		}
 		return str;

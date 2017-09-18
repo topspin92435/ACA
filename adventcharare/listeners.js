@@ -1,27 +1,19 @@
 module.exports = function() {
-	this.setGenericListeners = function(controller,createUser,smartReply) {
+	this.setGenericListeners = function(controller,createUser,smartReply,library) {
 
+
+/*		
 		controller.hears(['shucks'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
 			createUser(message.user);
 			smartReply(message, 'shucks howdy!');
 		});
-
-		controller.hears(['marshall is lame'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
-			smartReply(message, 'false');
-		});
-
-		controller.hears(['hungry', 'is there food', 'i want food'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
-			createUser(message.user);
-			smartReply(message, 'here have some food');
-		});
-/*		controller.hears(['haha'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+		controller.hears(['haha'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
 			createUser(message.user);
 			smartReply(message, 'ja');
 		});*/
 		/*controller.hears(['lol'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
 			smartReply(message, 'lololol');
 		});
-		*/
 		controller.hears(['lul'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
 			createUser(message.user);
 			smartReply(message, 'lulz');
@@ -31,90 +23,23 @@ module.exports = function() {
 			smartReply(message, 'oh moose');
 		});
 
-		controller.hears(['find me (.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+		controller.hears(['aww(.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
 			createUser(message.user);
-			var thing = parseAAn(message.match[1]);
-			if (checkPlural(thing))
-				smartReply(message, 'sorry i can\'t find any ' + (parseAAn(thing)) + ' for you D:');
-			else
-				smartReply(message, 'sorry i can\'t find any ' + singularToPlural(thing) + ' for you D:');
-		});
-		controller.hears(['apologize to (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
-			
-			var person = parseAAn(message.match[1]);
-			smartReply(message, 'im sorry ' + person);
+			smartReply(message, 'awwwwwwwwwwwwwwwwwww');
 		});
 		controller.hears(['im sorry (.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
 			createUser(message.user);
 			smartReply(message, 'im sorry too');
 		});
-
-		controller.hears(['aww(.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
-			createUser(message.user);
-			smartReply(message, 'awwwwwwwwwwwwwwwwwww');
-		});
-		controller.hears(['shame'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
-			createUser(message.user);
-			smartReply(message, 'shame (ding)');
-		});
-
-		/*
-		controller.hears(['(help)'], 'ambient,,direct_mention,mention', function(bot, message) {
-			createUser(message.user);
-			
-			smartReply(message, 'No help for the weak');
-		});*/
-
 		controller.hears(['Nice', 'nice'], 'ambient,,direct_mention,mention', function(bot, message) {
 			createUser(message.user);
 			smartReply(message, 'Niiiiiice!');
 		});
-
-		controller.hears(['(I want)(.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+		controller.hears(['(help)'], 'ambient,,direct_mention,mention', function(bot, message) {
 			createUser(message.user);
-			smartReply(message, 'I dont care what you want');
-		});
-		controller.hears(['heyo'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
-
-			smartReply(message, 'http://www.hiyoooo.com/');
-		});
-
-
-		controller.hears(['may is lame'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
-			smartReply(message, 'true');
-		});
-		
-		controller.hears(['insult (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
-			var person = grammar.parseAAn(message.match[1]);
 			
-			user = util.createUser(message.user);
-			if(person == 'someone' ) {
-				var randId = Object.keys(storage)[sys.rng(0, Object.keys(storage).length-1)];
-				var slackname = storage[randId] ? storage[randId].slackname : "my boy";
-
-				smartReply(message, slackname + ' is a ' + sys.libRng(library.insultAdj) + ' ' + sys.libRng(library.insultNoun) + '!');
-			} else {
-				person = grammar.parseAAn(person);
-				person = grammar.checkPlural(person) ? person : grammar.singularToPlural(person);
-				smartReply(message, person + ' are wankers!');
-			}
-
+			smartReply(message, 'No help for the weak');
 		});
-		
-		
-		controller.hears(['check money'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
-
-			var user= util.createUser(message.user);
-
-			util.smartReply(message, 'You got ' + user.money + ' '+sys.libRng(library.money)+'!');	
-		});
-
-		
-		controller.hears(['give me (.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
-			util.smartReply(message, 'I aint got that kinda money');	
-		});
-
-		
 		controller.hears(['\\bim (.*)',"\\bi'm (.*)", '\\bi am (.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
 			var user = createUser(message.user);
 
@@ -130,21 +55,65 @@ module.exports = function() {
 			else if (!person.match(/\w*ing\b/) && person.length < 20)
 				smartReply(message, 'Hello ' + person + ', im dad');
 		});
-		controller.hears(['such (.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
-			smartReply(message, 'much wow');
+		controller.hears(['uptime', 'identify yourself', 'who are you', 'what is your name'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+
+			var hostname = os.hostname();
+			var uptime = formatUptime(process.uptime());
+
+			util.smartReply(message,
+				':robot_face: I am a bot named <@' + bot.identity.name +
+				 '>. I have been running for ' + uptime + ' on ' + hostname + '.');
+
 		});
-		controller.hears(['uptime', 'identify yourself', 'who are you', 'what is your name'],
-			'ambient,direct_message,direct_mention,mention', function(bot, message) {
+		controller.hears(['(I want)(.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+			createUser(message.user);
+			smartReply(message, 'I dont care what you want');
+		});
+		*/
+		
+		controller.hears(['\\im hungry', '\\im (.*) hungry', '\\i\'m (.*) hungry', '\\i am (.*) hungry', '\\is there food', '\\i want food'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+			createUser(message.user);
+			smartReply(message, 'here have some food');
+		});
+		
+		controller.hears(['\\bapologize to (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
+			var person = grammar.parseAAn(message.match[1]);
+			smartReply(message, 'im sorry ' + person);
+		});
+		
+		controller.hears(['\\bfind me (.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+			createUser(message.user);
+			var thing = grammar.parseAAn(message.match[1]);
+			if (grammar.checkPlural(thing))
+				smartReply(message, 'sorry i can\'t find any ' + (grammar.parseAAn(thing)) + ' for you D:');
+			else
+				smartReply(message, 'sorry i can\'t find any ' + grammar.singularToPlural(thing) + ' for you D:');
+		});
 
-				var hostname = os.hostname();
-				var uptime = formatUptime(process.uptime());
+		controller.hears(['\\bshame'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+			createUser(message.user);
+			smartReply(message, 'shame (ding)');
+		});
+		
+		controller.hears(['\\bheyo'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+			smartReply(message, 'http://www.hiyoooo.com/');
+		});
 
-				util.smartReply(message,
-					':robot_face: I am a bot named <@' + bot.identity.name +
-					 '>. I have been running for ' + uptime + ' on ' + hostname + '.');
+		controller.hears(['\\binsult (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
+			var person = grammar.parseAAn(message.match[1]);
 
-			});
+			user = util.createUser(message.user);
+			if(person == 'someone' ) {
+				var randId = Object.keys(storage)[sys.rng(0, Object.keys(storage).length-1)];
+				var slackname = storage[randId] ? storage[randId].slackname : "my boy";
 
+				smartReply(message, slackname + ' is a ' + sys.libRng(library.insultAdj) + ' ' + sys.libRng(library.insultNoun) + '!');
+			} else {
+				smartReply(message, person + (grammar.checkPlural(person) ? ' are ' : ' is a ') + sys.libRng(library.insultAdj) + ' ' + (grammar.checkPlural(person) ? grammar.singularToPlural(sys.libRng(library.insultNoun)) : sys.libRng(library.insultNoun) ) + '!');
+			}
+
+		});
+		
 		function formatUptime(uptime) {
 			var unit = 'second';
 			if (uptime > 60) {
@@ -166,7 +135,6 @@ module.exports = function() {
 		controller.hears(['shutdown aca'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
 			process.exit(); 
 		});
-});	
 
 		
 	};

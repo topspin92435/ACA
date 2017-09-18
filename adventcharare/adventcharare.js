@@ -37,14 +37,11 @@ verb = sys.loadJSON('verb');
 adj = sys.loadJSON('adj');
 adv = sys.loadJSON('adv');
 ref = sys.loadJSON('ref');
-libFood = sys.loadJSON('food');
 libMonsters = sys.loadJSON('monsters');
-libWeapons = sys.loadJSON('weapons');
-libTools = sys.loadJSON('tools');
 libParts = sys.loadJSON('parts');
 linsibMonsters = sys.loadJSON('monsters');
 libCrafts = sys.loadJSON('crafts');
-//libPlants = sys.loadJSON('plants');
+storage= sys.loadJSON('storage');
 plurals = sys.loadJSON('plurals');
 library = sys.loadJSON('library');
 craftQue = sys.loadJSON('craftQue');
@@ -81,7 +78,7 @@ listeners.hello = function(bot, message) {
 }
 
 var setupInstance = new setup();
-setupInstance.setGenericListeners(controller,util.createUser,util.smartReply);
+setupInstance.setGenericListeners(controller,util.createUser,util.smartReply, library);
 
 var loadDependantListeners = function() {
 	controller.hears(grammar.parseStringArray(library.hello), 'direct_message,direct_mention,mention', function(bot, message) {
@@ -93,11 +90,11 @@ loadDependantListeners();
 
 
 var getCords = function (y,x) {
-	return (y + height) + '-' + (x + width);
+	return (y + height).toString() + '-' + (x + width).toString();
 }
 
-var getGround = function(user) {
-	return buildmap[getCords(user.y, user.x)].ground;
+var getBuildMap = function(user) {
+	return buildmap[getCords(user.y, user.x)];
 }
 
 
@@ -188,7 +185,7 @@ var removeItemDurability = function(inventory, item, reduction) {
 	}
 }
 
-controller.hears(['settings (.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['settings (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
 	var command = message.match[1];
 	user = util.createUser(message.user);
 	switch (command) {
@@ -222,21 +219,21 @@ var checkTile = function (usr, type) {
 	return map[usr.y + height][usr.x + width] == type;
 }
 
-var getCount = function(toBuy) {
+var getCount = function(item) {
 	var count = 1;
-	if (parseInt(toBuy) > 0) {
-		count = parseInt(toBuy);
+	if (parseInt(item) > 0) {
+		count = parseInt(item);
 		count = count > 0 ? count : 0;
-		var split = toBuy.split(" ");
+		var split = item.split(" ");
 		if (split.length > 0) {
-			toBuy = split[1];
+			item = split[1];
 		}
 	}
 	return count;
 }
 
 var dropStuff = function(user) {
-	var ground = getGround(user);
+	var ground = getBuildMap(user).ground;
 	transferInventory(ground, user.inventory)
 	sys.saveJson('buildmap', buildmap);
 	util.saveUser(user.id, storage[user.id]);
@@ -280,7 +277,7 @@ var addToInvList = function(arr) {
 	return reply;
 }
 
-controller.hears(['\\bhelp\\b'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['\\bhelp\\b'], 'direct_message,direct_mention,mention', function(bot, message) {
 
 	var reply = 'After several minutes of contemplation you realize that you could probably:\r\n';
 	reply += '*move* _(u)p_, _(d)own_, _(l)eft_, or _(r)ight_\r\n';
@@ -300,7 +297,7 @@ controller.hears(['\\bhelp\\b'], 'ambient,direct_message,direct_mention,mention'
 	util.smartReply(message, reply);
 });
 
-controller.hears(['check myself'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['check myself'], 'direct_message,direct_mention,mention', function(bot, message) {
 	var user = util.createUser(message.user);	
 
 	var msg = 'You check yourself and find:\r\n';
@@ -312,24 +309,24 @@ controller.hears(['check myself'], 'ambient,direct_message,direct_mention,mentio
 	util.smartReply(message, msg);
 });
 
-controller.hears(['check inventory'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['check inventory'], 'direct_message,direct_mention,mention', function(bot, message) {
 	var user = util.createUser(message.user);	
 
 	var msg = 'You check your inventory and find:\r\n';
 	msg += addToInvList(user.inventory);
 	util.smartReply(message, msg);
 });
-controller.hears(['check map'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['check map'], 'direct_message,direct_mention,mention', function(bot, message) {
 	var user = util.createUser(message.user);	
-	var msg = util.printLocalMap(user, 5);
+	var msg = util.printLocalMap(user, 5, true);
 	util.smartReply(message, msg);
 });
 
-controller.hears(['check full map'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+/*controller.hears(['check full map'], 'direct_message,direct_mention,mention', function(bot, message) {
 	var user = util.createUser(message.user);	
 	var msg = util.printLocalMap(user, 101);
 	util.smartReply(message, msg);
-});
+});*/
 
 var getCraftingPrintout = function (toShare, i) {
 	var msg = '*'+toShare[i] + (libCrafts[toShare[i]].output > 1 ? (' x'+libCrafts[toShare[i]].output ) : '')+'*:\r\n';
@@ -358,7 +355,7 @@ var craftingMenu = function(Title, type, toShare) {
 	return msg;
 }
 
-controller.hears(['check crafts(.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['check crafts(.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
 	var user = util.createUser(message.user);	
     var thing = message.match[1] ? grammar.parseAAn(message.match[1]) : null;
 	var msg = 'From deep within your mind you bring forth the plans for ' + (thing ? thing : '') + ':\r\n';
@@ -397,120 +394,116 @@ var checkBounds = function(direction, user) {
 }
 
 
-controller.hears(['\\blook\\b','\\bmove(.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
-	var direction = message.match[1] ? grammar.parseAAn(message.match[1]) : null;
+controller.hears(['\\blook\\b','\\bmove(.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
+
+	var direction = grammar.parseAAn(message.match[1]);
 	var msg ="";
-	
-	user = util.createUser(message.user);
+	var user = util.createUser(message.user);
 	if (direction && checkBounds(direction, user)) {
 		if (sys.libCheck(library.north, direction)) {
 			user.y++;
 			user.walked++;
-			if (user.walked % 5 == 0) {
-				msg+= 'Your stomache rumbles lightly as you lose 1 point of hunger. '
-				user.hunger--;
-			}
 		} else if (sys.libCheck(library.south, direction)) {
 			user.y--;
 			user.walked++;
-			if (user.walked % 5 == 0) {
-				msg+= 'Your stomache rumbles lightly as you lose 1 point of hunger. '
-				user.hunger--;
-			}
 		} else if (sys.libCheck(library.east, direction)) {
 			user.x++;
 			user.walked++;
-			if (user.walked % 5 == 0) {
-				msg+= 'Your stomache rumbles lightly as you lose 1 point of hunger. '
-				user.hunger--;
-			}
 		} else if (sys.libCheck(library.west, direction)) {
 			user.x--;
 			user.walked++;
-			if (user.walked % 5 == 0) {
-				msg+= 'Your stomache rumbles lightly as you lose 1 point of hunger. '
-				user.hunger--;
-			}
 		} else {
 			msg += ('Lost in confusion, you move nowhere. ');
 		}
 	} else if (direction) {
 		util.smartReply(message, 'You bump against an invisible wall and grumble bitterly');
 	}
-	if (user.hunger <= 0) {
+	
+	console.log(user.slackname , '(y:' + user.y, 'x:' + user.x+')');
+	/*if (user.hunger <= 0) {
 		msg+= ' Oh no! You\'ve starved to death :rip:';
 		dropStuff(user);
 		util.resetUser(user.id);;
 		
-	} else if (user.verbose) {
-		var myground = getGround(user);
-		msg += 'You look around and see ';
-		switch (map[user.y + height][user.x + width]) {
-			case '0':
-				msg += 'an empty plains'
-				break;
-				
-			case '1':
-				msg += 'a sparse gathering of trees'
-				break;
-			
-			case '2':
-				msg += 'a rolling mountain'
-				break;
-				
-				
-			case '3':
-				msg += 'a raging river.'
-				break;
-			
+	} else */
+	if (user.verbose) {
+		var myMap = getBuildMap(user);
+		msg += 'You look around and ';
+		if (myMap.building.name) {
+			if (myMap.building.type == 'static')
+				msg += 'see a ' + myMap.building.name + ' laying about.';
+			else if (myMap.building.type == 'building') {
+				msg += 'find yourself '+(myMap.building.name == 'path' ? 'on':'in')+' ';
+				if (myMap.building.title)
+					msg += myMap.building.title;
+				else
+					msg += 'a ' + myMap.building.name;
+				msg += '.';
+			}
 		}
-		
-		if (buildmap[(user.y+height)+'-'+(user.x+width)].building.name)
-			msg += ' with a ' + buildmap[(user.y+height)+'-'+(user.x+width)].building.name + ' laying about'
+		else {
+			msg += "see "
+			switch (map[user.y + height][user.x + width]) {
+				case '0':
+					msg += 'an empty plains.'
+					break;
+					
+				case '1':
+					msg += 'a sparse gathering of trees.'
+					break;
+				
+				case '2':
+					msg += 'a rolling mountain.'
+					break;
+					
+					
+				case '3':
+					msg += 'a raging river.'
+					break;
+				
+			}
+		}
 
-		msg += '.';
 		var found = 0;
-		if (myground.length > 0) {
+		if (myMap.ground.length > 0) {
 			var findmsg = ''
 			
-			for (var i in myground) {
-				if (myground[i].count > 0) {
+			for (var i in myMap.ground) {
+				if (myMap.ground[i].count > 0) {
 					found ++;
-					findmsg += myground[i].count + ' ' + (myground[i].count > 1 ? grammar.singularToPlural(myground[i].name) : myground[i].name) + ', ';
+					findmsg += myMap.ground[i].count + ' ' + (myMap.ground[i].count > 1 ? grammar.singularToPlural(myMap.ground[i].name) : myMap.ground[i].name) + ', ';
 				}
 			}
 			if (found > 0) {
 				msg += ' You also see ' + findmsg;
-				
 				msg = msg.substr(0,msg.length - 2);
 				msg = msg.replace(/,(?=[^,]*$)/, ' and')
 				msg += '.';
 			}
 		}
 	}
+	
+	updateUserMap(user, 2);
+	//if (message.channel == 'D262RMS92') {
+		msg += util.printLocalMap(user, 5, false);
+	//}
 	util.smartReply(message, msg);
-    updateUserMap(user, 2);
+    
+
 	util.saveUser(message.user, storage[message.user]);
 });
 
 var getLibThing = function(item, thing) {	
 	if (libCrafts[item])
-		return libCrafts[item][thing];
-	if (libFood[item])
-		return libFood[item][thing];
-	if (libWeapons[item])
-		return libWeapons[item][thing];
-	if (libTools[item])
-		return libTools[item][thing];
+		return libCrafts[item][thing]
 	
 	if (libParts[item])
-		return libParts[item][thing];
-	
+		return libParts[item][thing]
 	return 0;
 }
 
 
-controller.hears(['set home'],'ambient,direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['set home'],'direct_message,direct_mention,mention', function(bot, message) {
 	var user = util.createUser(message.user);
 	user.home = {
 		x: user.x,
@@ -520,7 +513,7 @@ controller.hears(['set home'],'ambient,direct_message,direct_mention,mention', f
 	util.smartReply(message,'You feel a growing sense of warmth as you find home');
 });
 
-controller.hears(['find (.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['find (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
     var person = grammar.parseAAn(message.match[1]);
 	var msg = '';
 	var user = util.createUser(message.user);
@@ -572,7 +565,7 @@ controller.hears(['find (.*)'], 'ambient,direct_message,direct_mention,mention',
 	}
 });
 
-controller.hears(['equip (.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['equip (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
     var item = grammar.parseAAn(message.match[1]);	
 	var user = util.createUser(message.user);
 	if (getInventoryItemCount(user.inventory, item) > 0) {
@@ -593,23 +586,15 @@ controller.hears(['equip (.*)'], 'ambient,direct_message,direct_mention,mention'
 });
 
 
-controller.hears(['drop (.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['drop (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
     var item = grammar.parseAAn(message.match[1]);
 	var user = util.createUser(message.user);
-	var count = 1;
-	if (parseInt(item) > 0) {
-		count = parseInt(item);
-		count = count > 0 ? count : 0;
-		var split = item.split(" ");
-		if (split.length > 0) {
-			item = split[1];
-		}
-	}
+	var count = getCount(item);
 	
 	if (count >= 1 && getInventoryItemCount(user.inventory, item) > 0) {
 		util.smartReply(message, 'You accidentally drop '+ (count > 1 ? (count +' of your ' + grammar.singularToPlural(item)):('your ' + item )) + ', but thankfully nobody noticed');
 		var guid = getItemGuidFromName(user.inventory, item);
-		transferItem(getGround(user), user.inventory, {name: item, guid: guid, count:count});
+		transferItem(getBuildMap(user).ground, user.inventory, {name: item, guid: guid, count:count});
 		if (user.equiped.guid && user.equiped.guid == guid) {
 			user.equiped = {
 				weapon: 'fist',
@@ -623,12 +608,13 @@ controller.hears(['drop (.*)'], 'ambient,direct_message,direct_mention,mention',
 		util.smartReply(message, 'Oh no! You seem to have misplaced your ' + item + '!' );
 });
 
-controller.hears(['smash (.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['smash (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
     var item = grammar.parseAAn(message.match[1]);
 	var user = util.createUser(message.user);
+	var myMap = getBuildMap(user);
 	
 	if (user.equiped.procType == 'hammer') {
-		if(buildmap[getCords(user.y,user.x, height,width)].building.name == item) {
+		if(myMap.building.name == item) {
 			util.smartReply(message, 'You bring your '+ user.equiped.weapon +' thundering down upon the unsuspecting ' + item + ', smashing it to pieces' );
 			buildmap[getCords(user.y,user.x, height,width)].building = {};
 			sys.saveJson('buildmap', buildmap);
@@ -653,7 +639,7 @@ controller.hears(['smash (.*)'], 'ambient,direct_message,direct_mention,mention'
 });
 
 
-controller.hears(['fight (.*)','attack (.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['fight (.*)','attack (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
     var otherUserName = grammar.parseAAn(message.match[1]);
 	var otherUser = util.getUserByName(otherUserName);
 	var user = util.createUser(message.user);
@@ -712,7 +698,7 @@ var checkBuildMapProc = function(x,y,process,level) {
 	return false;
 }
 
-controller.hears(['\\bcraft (.*)\\b'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['\\bcraft (.*)\\b'], 'direct_message,direct_mention,mention', function(bot, message) {
 	var user = util.createUser(message.user);
 	var toCraft = grammar.parseAAn(message.match[1]);
 	
@@ -731,7 +717,7 @@ controller.hears(['\\bcraft (.*)\\b'], 'ambient,direct_message,direct_mention,me
 	// Check space free
 	var mybuilding = buildmap[getCords(user.y,user.x, height,width)].building;
 	if (mybuilding.name && libCrafts[toCraft].size && libCrafts[toCraft].size > 0) {
-		util.smartReply(message, 'It might be a bit crowded here with the '+ buildmap[getCords(user.y,user.x, height,width)].building.item +' and all');	
+		util.smartReply(message, 'It might be a bit crowded here with the '+ mybuilding.name +' and all');	
 		return 1;
 	}
 
@@ -754,6 +740,7 @@ controller.hears(['\\bcraft (.*)\\b'], 'ambient,direct_message,direct_mention,me
 	if (libCrafts[toCraft].size > 0) {
 		 buildmap[getCords(user.y,user.x, height,width)].building = {
 			name: toCraft,
+			type: libCrafts[toCraft].type,
 			procType: libCrafts[toCraft].procType
 		};
 		sys.saveJson('buildmap', buildmap);
@@ -808,10 +795,10 @@ controller.hears(['\\bcraft (.*)\\b'], 'ambient,direct_message,direct_mention,me
 	util.saveUser(message.user, storage[message.user]);
 });
 
-controller.hears(['\\bsearch\\b','\\bforage\\b', '\\btake\\b'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['\\bsearch\\b','\\bforage\\b', '\\btake\\b'], 'direct_message,direct_mention,mention', function(bot, message) {
 
 	var user = util.createUser(message.user);
-	var myground = getCords(user);
+	var myground = getBuildMap(user).ground;
 	var found = 0;
 	
 	if (myground.length > 0) {
@@ -868,7 +855,7 @@ var checkEquipProc = function(user, type) {
 
 
 /*
-controller.hears(['\\bplant tuber\\b'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['\\bplant tuber\\b'], 'direct_message,direct_mention,mention', function(bot, message) {
 	var newCraft = {
 		x: user.x + width,
 		y: user.y + height,
@@ -894,6 +881,8 @@ var eatItem = function(usr, msg, toEat, cnt, lib) {
 	if (lib[toEat]) {
 		var guid = getItemGuidFromName(usr, toEat);
 		if (getInventoryItemCount(usr.inventory, toEat)) {
+			if (!lib[toEat].heal && !lib[toEat].hunger)
+				return false;
 			removeFromInventory(usr.inventory, {name: toEat, count: cnt});
 			var toheal = 0;
 			if (lib[toEat].heal)
@@ -920,11 +909,23 @@ var eatItem = function(usr, msg, toEat, cnt, lib) {
 	return false;
 }
 
-controller.hears(['\\beat (.*)', '\\beat my (.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['\\bname building (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
+    var title = grammar.parseAAn(message.match[1]);
+	var user = util.createUser(message.user);
+	var building = getBuildMap(user).building;
+
+	if (building && building.name) {
+		building.title = title;
+		util.smartReply(message, 'Upon further contemplation, you discover your '+building.name+' is actually called ' + building.title);
+	}
+});
+
+controller.hears(['\\beat (.*)', '\\beat my (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
     var food = grammar.parseAAn(message.match[1]);
 	var user = util.createUser(message.user);
 	var otherUser = util.getUserByName(food);
-	
+	var count = getCount(food);
+
 	if (otherUser) {
 		otherUser.health += 5;
 		user.health += 5;
@@ -932,23 +933,7 @@ controller.hears(['\\beat (.*)', '\\beat my (.*)'], 'ambient,direct_message,dire
 		util.saveUser(message.user, storage[message.user]);
 		util.saveUser(otherUser.user, storage[otherUser.user]);
 	} else {
-		var count = 1;
-		if (parseInt(food) > 0) {
-			count = parseInt(food);
-			count = count > 0 ? count : 0;
-			var split = food.split(" ");
-			if (split.length > 0) {
-				food = split[1];
-			}
-		}
-		
-		if (eatItem(user, message, food, count, libFood)) {
-			return 1;
-		} else if (eatItem(user, message, food, count, libWeapons)) {
-			return 1;
-		} else if (eatItem(user, message, food, count, libTools)) {
-			return 1;
-		} else if (eatItem(user, message, food, count, libParts)) {
+		if (eatItem(user, message, food, count, libCrafts)) {
 			return 1;
 		} else {
 			util.smartReply(message, 'You find yourself unable to eat any more '+food+'.');
@@ -956,7 +941,7 @@ controller.hears(['\\beat (.*)', '\\beat my (.*)'], 'ambient,direct_message,dire
 	}
 });
 
-controller.hears(['call me (.*)'], 'ambient,direct_message,direct_mention,mention', function(bot, message) {
+controller.hears(['call me (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
     var name = message.match[1];
 	user = util.createUser(message.user);
 	
@@ -974,7 +959,7 @@ controller.tick = function() {
 		if (craftQue[i].countdown > 0) {
 			if (craftQue[i].countdown % 30 == 0)
 				console.log('processing '+craftQue[i].item.name + '-'+ craftQue[i].countdown +' (' + craftQue[i].y+'-'+craftQue[i].x+')')
-			craftQue[i].countdown -= 1;
+			craftQue[i].countdown--;
 			if (craftQue[i].countdown <= 0) {
 				console.log(craftQue[i].item.name + ' finished crafting');
 				util.smartReply(craftQue[i].message, 'Hurray! Your '+ craftQue[i].item.name +' is done');
