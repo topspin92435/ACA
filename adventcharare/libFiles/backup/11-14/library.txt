@@ -1,0 +1,104 @@
+{
+	"money": [
+		"big ones",
+		"smackers",
+		"doll hairs",
+		"bucks",
+		"bananas",
+		"clams",
+		"simoleons",
+		"USD",
+		"coins",
+		"$$$",
+		"quid",
+		"dollars",
+		"bills"
+	],
+	"dragon": [
+		"cool",
+		"idiotic",
+		"fancy"
+	],
+	"north": [
+		"north",
+		"up",
+		"u",
+		"n"
+	],
+	"south": [
+		"south",
+		"down",
+		"s",
+		"d"
+	],
+	"east": [
+		"east",
+		"right",
+		"e",
+		"r"
+	],
+	"west": [
+		"west",
+		"left",
+		"w",
+		"l"
+	],
+	"joke": [
+		"very funny!",
+		"jajajaja",
+		"pretty clever",
+		"lulz"
+	],
+	"hello": [
+		"\\bGreetings",
+		"\\bAhoy",
+		"\\bHello",
+		"\\bHi",
+		"\\bHeyya",
+		"\\bSalutations",
+		"\\bHowdy",
+		"\\bAloha",
+		"\\bHail"
+	],
+	"bye": [
+		"Bye",
+		"Goodbye",
+		"Adios",
+		"Adieu",
+		"Au Revoir",
+		"Sayonara",
+		"Bon Voyage",
+		"Cheers",
+		"Peace",
+		"Get lost",
+		"Go away",
+		"Screw off"
+	],
+	"insultAdj": [
+		"filthy",
+		"stupid",
+		"dopey",
+		"repugnant",
+		"grotesque",
+		"decrepit",
+		"awful",
+		"square",
+		"degenerate"
+	],
+	"insultNoun": [
+		"scrub",
+		"loner",
+		"dingus",
+		"abomination",
+		"cow",
+		"watermelon",
+		"degenerate",
+		"dork",
+		"wanker",
+		"lard",
+		"yob",
+		"nuisance",
+		"tosser",
+		"square"
+	]
+}

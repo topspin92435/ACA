@@ -1,0 +1,60 @@
+{
+	"mud pit": {
+		"procType": {
+			"type": "pit",
+			"level": 1,
+			"durability": 1,
+			"quality": 100
+		},
+		"ingredients": {
+			"mud": 20
+		},
+		"output": 1,
+		"time": 20
+	},
+	"mud furnace": {
+		"procType": {
+			"type": "furnace",
+			"level": 1,
+			"durability": 200,
+			"quality": 100
+		},
+		"ingredients": {
+			"stones": 15,
+			"mud": 20
+		},
+		"output": 1,
+		"time": 1
+	},
+	"mud-brick furnace": {
+		"procType": {
+			"type": "furnace",
+			"level": 2,
+			"durability": 200,
+			"quality": 100
+		},
+		"ingredients": {
+			"stones": 20,
+			"bricks": 30
+		},
+		"output": 1,
+		"time": 1
+	},
+	"wood cook-pot": {
+		"procType": {
+			"type": "cook",
+			"level": 1,
+			"durability": 40,
+			"quality": 100
+		},
+		"procReq": {
+			"type": "chisel",
+			"level": 1
+		},
+		"ingredients": {
+			"wood": 5
+		},
+		"output": 1,
+		"time": 5
+	}
+}

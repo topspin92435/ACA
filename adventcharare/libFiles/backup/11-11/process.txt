@@ -1,0 +1,11 @@
+{
+	"charcoal": {
+		"procReq": "furnace",
+		"wood": 2
+	},
+	"brick": {
+		"procReq": "furnace",
+		"sticks": 2,
+		"mud": 3
+	}
+}

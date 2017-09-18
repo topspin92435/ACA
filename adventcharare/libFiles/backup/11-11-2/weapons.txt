@@ -1,0 +1,16 @@
+{
+	"club": {
+		"plural": "clubs",
+		"cost": 400,
+		"damage": 4,
+		"heal": -20,
+		"reusable": true
+	},
+	"staff": {
+		"plural": "staffs",
+		"cost": 1200,
+		"damage": 25,
+		"heal": -50,
+		"reusable": true
+	}
+}

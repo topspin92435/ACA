@@ -1,31 +1,31 @@
 {
 	"U1R2XKNKA": {
 		"id": "U1R2XKNKA",
-		"money": 5993,
-		"x": -13,
-		"y": 14,
-		"health": 1142,
-		"walked": 629,
+		"money": 2975,
+		"x": 29,
+		"y": -37,
+		"health": 1120,
+		"walked": 80,
 		"inventory": [
 			{
 				"name": "stick",
-				"count": 363
+				"count": 8
 			},
 			{
 				"name": "rock",
-				"count": 361
+				"count": -9
 			},
 			{
 				"name": "mud",
-				"count": 564
+				"count": 28
 			},
 			{
 				"name": "tuber",
-				"count": 12
+				"count": 14
 			},
 			{
 				"name": "wood",
-				"count": 719
+				"count": 10
 			},
 			{
 				"name": "soup",
@@ -33,7 +33,7 @@
 			},
 			{
 				"name": "charcoal",
-				"count": 32
+				"count": 2
 			},
 			{
 				"name": "iron ore",
@@ -51,7 +51,7 @@
 			},
 			{
 				"name": "iron bar",
-				"count": 197
+				"count": 3
 			},
 			{
 				"name": "stone hatchet",
@@ -72,89 +72,65 @@
 					"durability": 8,
 					"quality": 100
 				}
-			},
-			{
-				"name": "iron axe",
-				"count": 1,
-				"procType": {
-					"type": "axe",
-					"level": 2,
-					"durability": 24,
-					"quality": 100
-				}
-			},
-			{
-				"name": "iron chisel",
-				"guid": "1a9b63d1-ce75-4385-9a7b-946d33a24e9b",
-				"count": 1,
-				"procType": {
-					"type": "chisel",
-					"level": 2,
-					"durability": 71,
-					"quality": 100
-				}
 			}
 		],
 		"verbose": true,
 		"equiped": {
-			"weapon": "iron chisel",
-			"damage": 4,
+			"weapon": "wood chisel",
+			"damage": 2,
 			"reusable": true,
-			"guid": "1a9b63d1-ce75-4385-9a7b-946d33a24e9b",
-			"procLevel": 2,
+			"procLevel": 1,
 			"procType": "chisel"
 		},
 		"slackname": "lilwayne",
-		"name": "Big Daddy",
-		"hunger": 308,
+		"name": "stupid",
+		"hunger": 387,
 		"home": {
-			"x": -5,
-			"y": 15
-		},
-		"dadjokes": 22,
-		"messages": 71,
-		"inactive": false,
-		"messageCount": 922,
-		"meCount": 19,
-		"iCount": 136,
-		"myCount": 35,
-		"imCount": 25
+			"x": 24,
+			"y": -47
+		}
 	},
 	"U1R4HCPHT": {
 		"id": "U1R4HCPHT",
-		"money": 3209,
+		"money": 1762,
 		"x": -5,
-		"y": 16,
-		"health": 1246,
-		"walked": 351,
+		"y": 17,
+		"health": 900,
+		"walked": 266,
 		"inventory": [
 			{
 				"name": "stick",
-				"count": 110
+				"count": 123
 			},
 			{
 				"name": "rock",
-				"count": 159
+				"count": 173
 			},
 			{
 				"name": "tuber",
-				"count": 8
+				"count": 21
 			},
 			{
 				"name": "iron ore",
-				"count": 23
-			},
-			{
-				"name": "charcoal",
-				"count": -12
+				"count": 47
 			},
 			{
 				"name": "mud",
-				"count": 26
+				"count": 80
 			},
 			{
 				"name": "wood",
-				"count": 21
+				"count": 3
+			},
+			{
+				"name": "stone hatchet",
+				"count": 1,
+				"procType": {
+					"type": "axe",
+					"level": 1,
+					"durability": 8,
+					"quality": 100
+				}
 			},
 			{
 				"name": "wood chisel",
@@ -168,84 +144,47 @@
 			},
 			{
 				"name": "soup",
-				"count": 6
+				"count": 0
 			},
 			{
-				"name": "iron bar",
-				"count": 10
-			},
-			{
-				"name": "iron chisel",
+				"name": "stone shovel",
 				"count": 1,
 				"procType": {
-					"type": "chisel",
-					"level": 2,
-					"durability": 78,
-					"quality": 100
-				}
-			},
-			{
-				"name": "stone hatchet",
-				"count": 1,
-				"procType": {
-					"type": "axe",
+					"type": "shovel",
 					"level": 1,
-					"durability": 15,
-					"quality": 100
-				}
-			},
-			{
-				"name": "iron pickaxe",
-				"count": 1,
-				"procType": {
-					"type": "pickaxe",
-					"level": 2,
-					"durability": 91,
+					"durability": 3,
 					"quality": 100
 				}
 			}
 		],
 		"verbose": true,
 		"equiped": {
-			"weapon": "iron pickaxe",
+			"weapon": "stone shovel",
 			"damage": 4,
 			"reusable": true,
-			"procLevel": 2,
-			"procType": "pickaxe"
+			"procLevel": 1,
+			"procType": "shovel"
 		},
 		"slackname": "intrepid_leporid",
 		"lastDig": 839.31,
-		"hunger": 173,
-		"name": "Tatjana",
-		"home": {
-			"x": -5,
-			"y": 16
-		},
-		"dadjokes": 8,
-		"messages": 100,
-		"Big DaddyPoints": 100,
-		"messageCount": 1112,
-		"iCount": 205,
-		"imCount": 33,
-		"myCount": 34,
-		"meCount": 25
+		"hunger": 216
 	},
 	"U1R4P3LQH": {
 		"id": "U1R4P3LQH",
-		"money": 4707,
+		"money": 3620,
 		"x": -50,
-		"y": 18,
-		"health": 2789,
-		"hunger": 106,
-		"walked": 374,
+		"y": -23,
+		"health": 2621,
+		"hunger": 94,
+		"walked": 333,
 		"inventory": [
 			{
 				"name": "stick",
-				"count": 44
+				"count": 46
 			},
 			{
 				"name": "rock",
-				"count": 91
+				"count": 78
 			},
 			{
 				"name": "wood",
@@ -277,11 +216,11 @@
 			},
 			{
 				"name": "mud",
-				"count": 65
+				"count": 27
 			},
 			{
 				"name": "tuber",
-				"count": 52
+				"count": 14
 			},
 			{
 				"name": "wood chisel",
@@ -294,46 +233,36 @@
 				}
 			},
 			{
-				"name": "iron ore",
-				"count": 13
-			},
-			{
 				"name": "stone shovel",
 				"count": 1,
 				"procType": {
 					"type": "shovel",
 					"level": 1,
-					"durability": 24,
+					"durability": 18,
 					"quality": 100
 				}
 			}
 		],
 		"verbose": true,
 		"equiped": {
-			"weapon": "stone shovel",
+			"weapon": "stone hatchet",
 			"damage": 4,
 			"reusable": true,
 			"procLevel": 1,
-			"procType": "shovel"
+			"procType": "axe"
 		},
 		"slackname": "nogoat23",
 		"lastDig": 7163.092,
-		"name": "Mike",
-		"dadjokes": 7,
-		"iCount": 1,
-		"messages": 135,
-		"messageCount": 478,
-		"meCount": 18,
-		"myCount": 20
+		"name": "table"
 	},
 	"U1R39LEP4": {
 		"id": "U1R39LEP4",
-		"money": 4050,
-		"x": -9,
-		"y": 16,
+		"money": 3174,
+		"x": -1,
+		"y": 11,
 		"health": 511,
-		"hunger": 45,
-		"walked": 382,
+		"hunger": 48,
+		"walked": 359,
 		"inventory": [
 			{
 				"name": "stick",
@@ -341,7 +270,7 @@
 			},
 			{
 				"name": "rock",
-				"count": 477
+				"count": 470
 			},
 			{
 				"name": "wood",
@@ -408,20 +337,14 @@
 		},
 		"slackname": "dragon",
 		"inactive": false,
-		"name": "May",
 		"home": {
 			"x": -1,
 			"y": 0
-		},
-		"dadjokes": 25,
-		"messageCount": 1009,
-		"iCount": 180,
-		"meCount": 26,
-		"myCount": 38
+		}
 	},
 	"U2ANBGAQ4": {
 		"id": "U2ANBGAQ4",
-		"money": 593,
+		"money": 179,
 		"x": 47,
 		"y": -10,
 		"health": 100,
@@ -447,15 +370,7 @@
 			"damage": 1,
 			"reusable": true
 		},
-		"slackname": "the_botanist",
-		"name": "Skyler",
-		"dadjokes": 12,
-		"messages": 117,
-		"inactive": true,
-		"messageCount": 652,
-		"iCount": 101,
-		"myCount": 10,
-		"meCount": 6
+		"slackname": "the_botanist"
 	},
 	"USLACKBOT": {
 		"id": "USLACKBOT",
@@ -472,9 +387,7 @@
 			"damage": 1,
 			"reusable": true
 		},
-		"slackname": "slackbot",
-		"dadjokes": 0,
-		"MayPoints": 1
+		"slackname": "slackbot"
 	},
 	"U273XEU7Q": {
 		"id": "U273XEU7Q",
@@ -490,45 +403,6 @@
 			"damage": 1,
 			"reusable": true
 		},
-		"slackname": "insulter-3000",
-		"dadjokes": 0
-	},
-	"U2X8350SH": {
-		"id": "U2X8350SH",
-		"money": 137,
-		"x": -22,
-		"y": -3,
-		"health": 100,
-		"walked": 0,
-		"inventory": [],
-		"verbose": true,
-		"equiped": {
-			"weapon": "fist",
-			"damage": 1,
-			"reusable": true
-		},
-		"slackname": "Whitney",
-		"dadjokes": 1
-	},
-	"U4Q91LAUR": {
-		"id": "U4Q91LAUR",
-		"money": 128,
-		"x": -13,
-		"y": 12,
-		"health": 100,
-		"walked": 0,
-		"messages": 73,
-		"inventory": [],
-		"verbose": true,
-		"equiped": {
-			"weapon": "fist",
-			"damage": 1,
-			"reusable": true
-		},
-		"slackname": "windsinger",
-		"messageCount": 461,
-		"iCount": 114,
-		"meCount": 15,
-		"myCount": 28
+		"slackname": "insulter-3000"
 	}
 }

@@ -1,0 +1,20 @@
+{
+	"shovel": {
+		"plural": "shovels",
+		"cost": "120",
+		"damage": 6,
+		"heal": -18,
+		"reusable": true,
+		"tool" : {
+			"type": "dig",
+			"value": 4
+		}
+	},
+	"axes": {
+		"singular": "axes",
+		"cost": "5000",
+		"damage": 6,
+		"heal": -18,
+		"reusable": true
+	}
+}

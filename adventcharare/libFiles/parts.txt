@@ -20,5 +20,28 @@
 			"type": "dig",
 			"value": 1
 		}
+	},
+	"apple": {
+		"plural": "apples",
+		"cost": "6",
+		"damage": 10,
+		"hunger": 3,
+		"heal": 3,
+		"reusable": false,
+		"plantable": true,
+		"output": 1,
+		"time": 3600
+		
+	},
+	"tuber": {
+		"plural": "tubers",
+		"cost": "12",
+		"damage": 12,
+		"heal": 8,
+		"hunger": 6,
+		"reusable": false,
+		"plantable": true,
+		"output": 3,
+		"time": 3600
 	}
 }

@@ -1,0 +1,24 @@
+{
+	"stick": {
+		"plural": "sticks",
+		"cost": "5",
+		"damage": 7,
+		"heal": -15,
+		"reusable": false,
+		"tool" : {
+			"type": "dig",
+			"value":  2
+		}
+	},
+	"rock": {
+		"plural": "rocks",
+		"cost": "10",
+		"damage": 15,
+		"heal": -25,
+		"reusable": false,
+		"tool" : {
+			"type": "dig",
+			"value": 1
+		}
+	}
+}

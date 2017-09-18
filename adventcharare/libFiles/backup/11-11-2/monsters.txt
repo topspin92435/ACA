@@ -1,0 +1,17 @@
+{
+	"cat": {
+		"plural": "cats",
+		"damage": 7,
+		"zone": -1
+	},
+	"flying squirrel": {
+		"plural": "flying squirrels",
+		"damage": 4,
+		"zone": -1
+	},
+	"monkey": {
+		"plural": "monkeys",
+		"damage": 15,
+		"zone": 1
+	}
+}

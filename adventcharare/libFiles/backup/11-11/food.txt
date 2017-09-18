@@ -1,0 +1,26 @@
+{
+	"soup": {
+		"plural": "soups",
+		"cost": "20",
+		"damage": 4,
+		"heal": 20,
+		"hunger": 25,
+		"reusable": false
+	},
+	"apple": {
+		"plural": "apples",
+		"cost": "6",
+		"damage": 10,
+		"hunger": 3,
+		"heal": 3,
+		"reusable": false
+	},
+	"tuber": {
+		"plural": "tubers",
+		"cost": "12",
+		"damage": 12,
+		"heal": 8,
+		"hunger": 6,
+		"reusable": false
+	}
+}
