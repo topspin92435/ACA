@@ -1,17 +1,19 @@
-module.exports = {
-	rng: function (min, max) {
+module.exports = function(root) {
+	var module = {}
+	
+	module.rng = function (min, max) {
 		if (min.typeof === 'undefined') { min = 0 };
 		if (max.typeof === 'undefined' || max < min ) {return -1}
 
 		return Math.floor(Math.random() * (max - min + 1)) + min;
-	},
+	};
 
-	libRng: function(arr) {
+	module.libRng = function(arr) {
 		if (arr.typeof === 'undefined' || arr.length == 0) { return "missing lib" }
 		return arr[sys.rng(0, arr.length - 1)];
-	},
+	};
 
-	libCheck: function(arr, str) {
+	module.libCheck = function(arr, str) {
 		if (arr.typeof === 'undefined' || arr.length == 0) { return "missing lib" }
 		
 		for (var i in arr)
@@ -19,8 +21,9 @@ module.exports = {
 				return true
 		
 		return false
-	},
-	saveJson: function(filename, object) {
+	};
+	
+	module.saveJSON = function(filename, object) {
 		var fs = require('fs');
 		var stream = fs.createWriteStream('./' + root + '/' + filename + ".txt");
 		stream.once('open', function(fd) {
@@ -29,8 +32,9 @@ module.exports = {
 			stream.end();
 			
 		});
-	},
-	loadJSON:function (filename) {
+	};
+	
+	module.loadJSON = function (filename) {
 		console.log("debug: Loading " + filename + "...");
 		try { 
 			data = require('fs').readFileSync(root + '/' +filename +'.txt', 'ascii');
@@ -46,5 +50,7 @@ module.exports = {
 				console.log(err);
 			process.exit(-1);
 		}
-	}
+	};
+	
+	return module;
 }

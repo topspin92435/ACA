@@ -8,15 +8,21 @@
 
 This is a sample Slack bot built with Botkit.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
+const root = 'libFiles';
 
 var Botkit = require("../lib/Botkit.js");
+var tok = require("../token.js")
+
 var os = require('os');
 var _ = require('lodash');
 var uuid = require('node-uuid');
-var tok = require("../token.js");
 
-controller = Botkit.slackbot({
+var sys = require("./sys.js")(root);
+var setup = require("./listeners.js");
+var util = require("./util.js");
+var grammar = require("./grammar.js");
+
+var controller = Botkit.slackbot({
     debug: false
 });
 bot = controller.spawn({
@@ -24,11 +30,6 @@ bot = controller.spawn({
 }).startRTM();
 
 var library = [], listeners = {};
-setup = require("./listeners.js");
-sys = require("./sys.js");
-util = require("./util.js");
-grammar = require("./grammar.js");
-root = 'libFiles';
 
 map = util.readMap('map3');
 usermap = sys.loadJSON('usermap');
@@ -99,17 +100,17 @@ var getBuildMap = function(user) {
 
 
 var getItemGuidFromName = function (inventory, name) {
-	for (var i in inventory) 
-		if (inventory[i].name == name)
-			return inventory[i].guid;
+	for (var i of inventory) 
+		if (i.name == name)
+			return i.guid;
 	
 	return null;
 }
 
 var addToInventory = function (inventory, item) {
-	for (var i in inventory) {
-		if (!item.guid && inventory[i].name == item.name) {
-			inventory[i].count += item.count;
+	for (var i of inventory) {
+		if (!item.guid && i.name == item.name) {
+			i.count += item.count;
 			return;
 		}
 	}
@@ -235,7 +236,7 @@ var getCount = function(item) {
 var dropStuff = function(user) {
 	var ground = getBuildMap(user).ground;
 	transferInventory(ground, user.inventory)
-	sys.saveJson('buildmap', buildmap);
+	sys.saveJSON('buildmap', buildmap);
 	util.saveUser(user.id, storage[user.id]);
 }
 
@@ -256,7 +257,7 @@ var updateUserMap = function(user, size) {
 			usermap[user.id][user.y+height+y-size][user.x+width+x-size] = map[user.y+height+y-size][user.x+width+x-size];
 		}
 	}
-	sys.saveJson('usermap', usermap);
+	sys.saveJSON('usermap', usermap);
 };
 
 var addToList = function(lib) {
@@ -603,7 +604,7 @@ controller.hears(['drop (.*)'], 'direct_message,direct_mention,mention', functio
 			}
 		}
 		util.saveUser(message.user, storage[message.user]);
-		sys.saveJson('buildmap', buildmap);
+		sys.saveJSON('buildmap', buildmap);
 	} else
 		util.smartReply(message, 'Oh no! You seem to have misplaced your ' + item + '!' );
 });
@@ -617,7 +618,7 @@ controller.hears(['smash (.*)'], 'direct_message,direct_mention,mention', functi
 		if(myMap.building.name == item) {
 			util.smartReply(message, 'You bring your '+ user.equiped.weapon +' thundering down upon the unsuspecting ' + item + ', smashing it to pieces' );
 			buildmap[getCords(user.y,user.x, height,width)].building = {};
-			sys.saveJson('buildmap', buildmap);
+			sys.saveJSON('buildmap', buildmap);
 			
 			if (removeItemDurability(user.inventory,{name:user.equiped.weapon}, sys.rng(4,5)) <= 0) {
 			
@@ -743,7 +744,7 @@ controller.hears(['\\bcraft (.*)\\b'], 'direct_message,direct_mention,mention', 
 			type: libCrafts[toCraft].type,
 			procType: libCrafts[toCraft].procType
 		};
-		sys.saveJson('buildmap', buildmap);
+		sys.saveJSON('buildmap', buildmap);
 		
 	// Add to crafting que
 	} else if (libCrafts[toCraft].time > 1) {
@@ -763,7 +764,7 @@ controller.hears(['\\bcraft (.*)\\b'], 'direct_message,direct_mention,mention', 
 		    newCraft.durability = -sys.rng(2,3);
 			console.log(newCraft);
 			buildmap[getCords(user.y,user.x, height,width)].building.procType.inUse = true;
-			sys.saveJson('buildmap', buildmap);
+			sys.saveJSON('buildmap', buildmap);
 			craftQue.push(newCraft);
 		} else {
 			util.smartReply(message, 'Your ' + buildmap[getCords(user.y,user.x, height,width)].building.name + ' seems to be in use');
@@ -821,7 +822,7 @@ controller.hears(['\\bsearch\\b','\\bforage\\b', '\\btake\\b'], 'direct_message,
 	util.smartReply(message, found > 0 ? msg : 'Due to your greedy nature, you have exhausted the resources at this location');
 	
 	if (found > 0)
-		sys.saveJson('buildmap', buildmap);
+		sys.saveJSON('buildmap', buildmap);
 	util.saveUser(message.user, storage[message.user]);
 });
 
@@ -871,7 +872,7 @@ controller.hears(['\\bplant tuber\\b'], 'direct_message,direct_mention,mention',
 	newCraft.durability = -sys.rng(2,3);
 	console.log(newCraft);
 	buildmap[getCords(user.y,user.x, height,width)].building.procType.inUse = true;
-	sys.saveJson('buildmap', buildmap);
+	sys.saveJSON('buildmap', buildmap);
 	craftQue.push(newCraft);
 }*/
 
@@ -951,8 +952,6 @@ controller.hears(['call me (.*)'], 'direct_message,direct_mention,mention', func
 
 });
 
-
-
 controller.tick = function() {
 	// Handel craft que
 	for (i in craftQue) {
@@ -973,10 +972,10 @@ controller.tick = function() {
 					}
 				}
 				
-				sys.saveJson('buildmap', buildmap);
+				sys.saveJSON('buildmap', buildmap);
 				craftQue.splice(i, 1);
 			}
-			sys.saveJson('craftQue',craftQue);
+			sys.saveJSON('craftQue',craftQue);
 		}
 	}
 };
