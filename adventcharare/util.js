@@ -1,5 +1,6 @@
-module.exports = {
-	readMap: function(filename) {
+module.exports = function(){
+	var module = {}
+	module.readMap = function(filename) {
 		width = 0;
 		height = 0;
 		console.log("debug: Loading " + filename + "...");
@@ -32,8 +33,8 @@ module.exports = {
 				console.log(err.toString());
 			process.exit(-1);
 		}
-	},
-	getGroundSuf: function(type, building) {
+	};
+	module.getGroundSuf = function(type, building) {
 		if (building && building.name == 'path')
 			return '_path';
 		
@@ -50,8 +51,8 @@ module.exports = {
 			case '3':
 				return '_river';
 		}
-	},
-	getExtraEmoji: function(type) {
+	};
+	module.getExtraEmoji = function(type) {
 		switch(type) {
 			case 'cabin':
 				 return ':cabin_f:';
@@ -68,8 +69,9 @@ module.exports = {
 			case 'path':
 				return ':_path_1:';
 		}
-	},
-	getGroundEmoji: function(type) {
+	};
+	
+	module.getGroundEmoji = function(type) {
 		switch (type) {
 			case '0':
 				 return ':_desert_'+sys.rng(1,4)+':';
@@ -86,9 +88,9 @@ module.exports = {
 			case '-':
 				return ':unknown:';
 		}
-	},
+	};
 	
-	getUserEmoji(slackname) {
+	module.getUserEmoji = function(slackname) {
 		switch (slackname) {
 			case 'lilwayne':
 				return "";
@@ -100,8 +102,8 @@ module.exports = {
 				return '_obi';
 		}
 		return "";
-	},
-	printLocalMap: function(user, size, buffer) {
+	};
+	module.printLocalMap = function(user, size, buffer) {
 		var mapStr = '';
 		if (!usermap[user.id])
 			return "you don\'t have a map yet";
@@ -137,28 +139,20 @@ module.exports = {
 		//mapStr += ' v ' + _.repeat('v ', size * 2) + '\r\n';
 		//mapStr += '```';
 		return mapStr;
-	},
-	saveUser: function (userId, user) {
-		storage[userId] = user;
-		var fs = require('fs');
-		var stream = fs.createWriteStream("libFiles/storage.txt");
-		stream.once('open', function(fd) {
-			
-			var str = JSON.stringify(storage, null, '\t');
-			stream.write(str);
-			stream.end();
-			
-		});
-	}, 
-	smartReply: function(message, string) {
-		if (!storage[message.user])
-			storage[message.user] = {};
-		storage[message.user].money += sys.rng(2,3);
-		if (!storage[message.user].inactive)
+	};
+	
+	module.saveStorage = function () {
+		sys.saveJSON('storage', storage);
+	};
+	
+	module.smartReply = function(message, string) {
+		var user = module.getUser(message.user);
+		
+		if (!user.inactive)
 			bot.reply(message, string);
-		util.saveUser(message.user, storage[message.user]);
-	},
-	getUserByName: function (name) {
+	};
+	
+	module.getUserByName = function (name) {
 		for (var i in storage) {
 			var user = storage[i];	
 			if (user && ((user.slackname && user.slackname.toLowerCase() == name.toLowerCase()) || (user.name && user.name.toLowerCase() == name.toLowerCase())))
@@ -166,49 +160,24 @@ module.exports = {
 			
 		}
 		return null;	
-	},
-	createUser: function(usr) {
-		if (!storage[usr] ) {
-			storage[usr] = {
-				id: usr,
-				money: 120,
-				x: sys.rng(0,100) - 50,
-				y: sys.rng(0,100) - 50,
-				health: 100,
-				health: 100,
-				walked: 0,
-				inventory: [],
-				verbose: true,
-				equiped: {
-					weapon: 'fist',
-					damage: 1,
-					reusable: true
-				}
-			};
-			bot.api.users.info({user:usr}, function(err, data) {
-				storage[data.user.id].slackname = data.user.name;
-				util.saveUser(usr, storage[usr])
-			});
-		}
+	};
+	
+	module.getUser = function(usr) {
+		if (!storage[usr])
+			module.createUser(usr);
+		
 		return storage[usr];
-	},
-	resetUser: function(usr) {
-		storage[usr].equiped = {
-			weapon: 'fist',
-			damage: 1,
-			reusable: true
-		};
-		storage[usr].x= sys.rng(0,100) - 50;
-		storage[usr].y= sys.rng(0,100) - 50;
-		storage[usr].money= 120
-		storage[usr].health= 100;
-		storage[usr].hunger= 100;
-		util.saveUser(usr, storage[usr])
+	};
+	
+	module.createUser = function(usr) {
+		storage[usr] = new User(usr);
 		return storage[usr];
-	},
-    countup: function(arr, item, val) {
+	};
+	
+    module.countup = function(arr, item, val) {
 		val = val ? val : 1;
 		arr[item] = arr[item] ? arr[item] + val: val;
-	}
+	};
 
+	return module;
 }

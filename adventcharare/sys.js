@@ -1,5 +1,5 @@
 module.exports = function(root) {
-	var module = {}
+	var module = {};
 	
 	module.rng = function (min, max) {
 		if (min.typeof === 'undefined') { min = 0 };
@@ -10,7 +10,7 @@ module.exports = function(root) {
 
 	module.libRng = function(arr) {
 		if (arr.typeof === 'undefined' || arr.length == 0) { return "missing lib" }
-		return arr[sys.rng(0, arr.length - 1)];
+		return arr[module.rng(0, arr.length - 1)];
 	};
 
 	module.libCheck = function(arr, str) {
@@ -27,8 +27,7 @@ module.exports = function(root) {
 		var fs = require('fs');
 		var stream = fs.createWriteStream('./' + root + '/' + filename + ".txt");
 		stream.once('open', function(fd) {
-			var str = JSON.stringify(object, null, '\t');
-			stream.write(str);
+			stream.write(JSON.stringify(object, null, '\t'));
 			stream.end();
 			
 		});
@@ -37,7 +36,7 @@ module.exports = function(root) {
 	module.loadJSON = function (filename) {
 		console.log("debug: Loading " + filename + "...");
 		try { 
-			data = require('fs').readFileSync(root + '/' +filename +'.txt', 'ascii');
+			var data = require('fs').readFileSync(root + '/' +filename +'.txt', 'ascii');
 			if (data.length == 0) {
 				console.log("ERROR: " + filename + " had no data...");
 				return {};
