@@ -50,6 +50,23 @@ module.exports = function(root) {
 			process.exit(-1);
 		}
 	};
+	module.loadText = function (filename) {
+		console.log("debug: Loading " + filename + "...");
+		try { 
+			var data = require('fs').readFileSync(root + '/' +filename +'.txt', 'ascii');
+			if (data.length == 0) {
+				console.log("Warning: " + filename + " had no data...");
+				return "";
+			} else {
+				console.log("debug: " + filename + " loaded...");
+				return data;
+			}
+		} catch (err) {
+			console.log("ERROR: " + filename + " failed to load");
+				console.log(err);
+			process.exit(-1);
+		}
+	};
 	
 	return module;
 }

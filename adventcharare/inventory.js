@@ -1,6 +1,15 @@
 module.exports = function(root) {
 	var module = {};
 	
+	module.checkCraftInventory = function (inventory, ingredients) {
+		var mats = Object.keys(ingredients);
+		for (var i in mats)
+			if (THIS.getInventoryItemCount(inventory, mats[i]) < ingredients[mats[i]])
+				return mats[i];
+
+		return false;
+	}
+
 	module.addToInventory = function (inventory, item) {
 		for (var i in inventory) {
 			if (!item.guid && inventory[i].name == item.name) {

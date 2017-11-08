@@ -400,5 +400,62 @@ module.exports = function(){
 		}
 	);
 	
+	module["stick"] = new Item(
+		{
+		 "damage": 7, 
+		 "heal": -15,
+		 "reusable": false,
+		 "type": "item",
+		 "size": 0,
+		}
+	);
+	
+	module["rock"] = new Item(
+		{
+		 "damage": 12, 
+		 "heal": -25,
+		 "reusable": false,
+		 "type": "item",
+		 "size": 0,
+		}
+	);
+	
+	module["apple"] = new Item(
+		{
+		 "damage": 3, 
+		 "heal": 15,
+		 "reusable": false,
+		 "type": "item",
+		 "size": 0,
+		}
+	);
+		
+	module["tuber"] = new Item(
+		{
+		 "damage": 2, 
+		 "heal": 8,
+		 "reusable": false,
+		 "type": "item",
+		 "size": 0,
+		}
+	);
+	
+	module["tuber soup"] = new Item(
+		{
+		 "damage": 2, 
+		 "heal": 40,
+		 "reusable": false,
+		 "type": "item",
+		 "size": 0,
+		},null,{
+			"time": 5,
+			"output": 1,
+			"ingredients": {"tuber": 5}
+		},
+		{
+			"type": "cookpot",
+			"level": 1
+		}
+	);
 	return module;
 }

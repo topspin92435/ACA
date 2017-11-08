@@ -723,7 +723,7 @@
 			},
 			{
 				"name": "rock",
-				"count": 0
+				"count": 1
 			}
 		]
 	},
@@ -745,7 +745,7 @@
 		"ground": [
 			{
 				"name": "stick",
-				"count": 0
+				"count": 1
 			},
 			{
 				"name": "rock",
@@ -758,7 +758,7 @@
 		"ground": [
 			{
 				"name": "stick",
-				"count": 0
+				"count": 2
 			},
 			{
 				"name": "rock",
@@ -771,7 +771,7 @@
 		"ground": [
 			{
 				"name": "stick",
-				"count": 0
+				"count": 2
 			},
 			{
 				"name": "rock",
@@ -784,7 +784,7 @@
 		"ground": [
 			{
 				"name": "stick",
-				"count": 0
+				"count": 1
 			},
 			{
 				"name": "rock",
@@ -801,7 +801,7 @@
 			},
 			{
 				"name": "rock",
-				"count": 0
+				"count": 3
 			}
 		]
 	},
@@ -823,7 +823,7 @@
 		"ground": [
 			{
 				"name": "stick",
-				"count": 0
+				"count": 2
 			},
 			{
 				"name": "rock",
@@ -840,7 +840,7 @@
 			},
 			{
 				"name": "rock",
-				"count": 0
+				"count": 1
 			}
 		]
 	},
@@ -853,7 +853,7 @@
 			},
 			{
 				"name": "rock",
-				"count": 0
+				"count": 3
 			}
 		]
 	},
@@ -862,11 +862,11 @@
 		"ground": [
 			{
 				"name": "stick",
-				"count": 0
+				"count": 2
 			},
 			{
 				"name": "rock",
-				"count": 0
+				"count": 2
 			}
 		]
 	},
@@ -879,7 +879,7 @@
 			},
 			{
 				"name": "rock",
-				"count": 0
+				"count": 2
 			}
 		]
 	},
@@ -42299,6 +42299,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"22-32": {
@@ -42312,6 +42315,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"23-32": {
@@ -42325,6 +42331,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"24-32": {
@@ -42338,6 +42347,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"25-32": {
@@ -42351,6 +42363,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"26-32": {
@@ -42364,6 +42379,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"27-32": {
@@ -42377,6 +42395,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"28-32": {
@@ -42390,6 +42411,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"29-32": {
@@ -42403,6 +42427,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"30-32": {
@@ -42416,6 +42443,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"31-32": {
@@ -43612,6 +43642,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"22-33": {
@@ -43625,6 +43658,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"23-33": {
@@ -43638,6 +43674,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"24-33": {
@@ -43651,6 +43690,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"25-33": {
@@ -43664,6 +43706,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"26-33": {
@@ -43677,6 +43722,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"27-33": {
@@ -43690,6 +43738,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"28-33": {
@@ -43703,6 +43754,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"29-33": {
@@ -43716,6 +43770,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"30-33": {
@@ -43729,6 +43786,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"31-33": {
@@ -44925,6 +44985,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"22-34": {
@@ -44938,6 +45001,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"23-34": {
@@ -44951,6 +45017,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"24-34": {
@@ -44964,6 +45033,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"25-34": {
@@ -44977,6 +45049,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"26-34": {
@@ -44990,6 +45065,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"27-34": {
@@ -45003,6 +45081,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"28-34": {
@@ -45016,6 +45097,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"29-34": {
@@ -45029,6 +45113,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"30-34": {
@@ -45042,6 +45129,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"31-34": {
@@ -46238,6 +46328,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"22-35": {
@@ -46251,6 +46344,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"23-35": {
@@ -46264,6 +46360,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"24-35": {
@@ -46277,6 +46376,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"25-35": {
@@ -46290,6 +46392,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"26-35": {
@@ -46303,6 +46408,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"27-35": {
@@ -46316,6 +46424,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"28-35": {
@@ -46329,6 +46440,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"29-35": {
@@ -46342,6 +46456,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"30-35": {
@@ -46355,6 +46472,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"31-35": {
@@ -47551,6 +47671,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"22-36": {
@@ -47564,6 +47687,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"23-36": {
@@ -47577,6 +47703,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"24-36": {
@@ -47590,6 +47719,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"25-36": {
@@ -47603,6 +47735,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"26-36": {
@@ -47616,6 +47751,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"27-36": {
@@ -47629,6 +47767,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"28-36": {
@@ -47642,6 +47783,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"29-36": {
@@ -47655,6 +47799,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"30-36": {
@@ -47668,6 +47815,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"31-36": {
@@ -48217,10 +48367,6 @@
 			{
 				"name": "charcoal",
 				"count": 0
-			},
-			{
-				"name": "charcoal",
-				"count": 0
 			}
 		]
 	},
@@ -48259,7 +48405,7 @@
 			},
 			{
 				"name": "rock",
-				"count": 0
+				"count": 3
 			}
 		]
 	},
@@ -48924,6 +49070,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"26-37": {
@@ -48937,6 +49086,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"27-37": {
@@ -48950,6 +49102,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"28-37": {
@@ -48963,6 +49118,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"29-37": {
@@ -48976,6 +49134,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"30-37": {
@@ -48989,6 +49150,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"31-37": {
@@ -50237,6 +50401,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"26-38": {
@@ -50250,6 +50417,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"27-38": {
@@ -50263,6 +50433,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"28-38": {
@@ -50276,6 +50449,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"29-38": {
@@ -50289,6 +50465,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"30-38": {
@@ -50302,6 +50481,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"31-38": {
@@ -51550,6 +51732,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"26-39": {
@@ -51563,6 +51748,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"27-39": {
@@ -51576,6 +51764,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"28-39": {
@@ -51589,6 +51780,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"29-39": {
@@ -51602,6 +51796,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"30-39": {
@@ -51615,6 +51812,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"31-39": {
@@ -83578,6 +83778,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"60-63": {
@@ -83591,6 +83794,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"61-63": {
@@ -83604,6 +83810,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"62-63": {
@@ -83617,6 +83826,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"63-63": {
@@ -83630,6 +83842,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"64-63": {
@@ -83643,6 +83858,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"65-63": {
@@ -83656,6 +83874,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"66-63": {
@@ -84891,6 +85112,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"60-64": {
@@ -84904,6 +85128,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"61-64": {
@@ -84917,6 +85144,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"62-64": {
@@ -84930,6 +85160,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"63-64": {
@@ -84943,6 +85176,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"64-64": {
@@ -84956,6 +85192,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"65-64": {
@@ -84969,6 +85208,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"66-64": {
@@ -86204,6 +86446,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"60-65": {
@@ -86217,6 +86462,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"61-65": {
@@ -86230,6 +86478,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"62-65": {
@@ -86243,6 +86494,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"63-65": {
@@ -86256,6 +86510,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"64-65": {
@@ -86269,6 +86526,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"65-65": {
@@ -86282,6 +86542,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"66-65": {
@@ -87517,6 +87780,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"60-66": {
@@ -87530,6 +87796,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"61-66": {
@@ -87543,6 +87812,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"62-66": {
@@ -87556,6 +87828,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"63-66": {
@@ -87569,6 +87844,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"64-66": {
@@ -87582,6 +87860,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"65-66": {
@@ -87595,6 +87876,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"66-66": {
@@ -88830,6 +89114,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"60-67": {
@@ -88843,6 +89130,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"61-67": {
@@ -88856,6 +89146,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"62-67": {
@@ -88869,6 +89162,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"63-67": {
@@ -88882,6 +89178,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"64-67": {
@@ -88895,6 +89194,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"65-67": {
@@ -88908,6 +89210,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"66-67": {
@@ -109653,6 +109958,16 @@
 			{
 				"name": "wood",
 				"count": 14
+			},
+			{
+				"name": "stone shovel",
+				"count": 1,
+				"procType": {
+					"type": "shovel",
+					"level": 1,
+					"durability": 20,
+					"quality": 100
+				}
 			}
 		]
 	},
