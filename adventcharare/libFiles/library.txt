@@ -50,15 +50,15 @@
 		"lulz"
 	],
 	"hello": [
-		"\\bGreetings",
-		"\\bAhoy",
-		"\\bHello",
-		"\\bHi",
-		"\\bHeyya",
-		"\\bSalutations",
-		"\\bHowdy",
-		"\\bAloha",
-		"\\bHail"
+		"Greetings",
+		"Ahoy",
+		"Hello",
+		"Hi",
+		"Heyya",
+		"Salutations",
+		"Howdy",
+		"Aloha",
+		"Hail"
 	],
 	"bye": [
 		"Bye",

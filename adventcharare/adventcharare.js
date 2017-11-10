@@ -17,15 +17,14 @@ var os = require('os');
 var _ = require('lodash');
 var uuid = require('node-uuid');
 
-width = 50;
-height = 50;
 sys = require("./sys.js")(root);
-setup = require("./listeners.js");
-util = require("./util.js")();
+listeners = require("./listeners.js");
+tick = require("./tick.js")();
 grammar = require("./grammar.js");
-invt = require("./inventory.js")();
+util = require("./util.js")();
+menus = require("./menus.js")();
 
-
+Inventory = require("./types/inventory.js");
 User = require('./types/user.js');
 Recipe = require('./types/recipe.js');
 ProcType = require('./types/proctype.js');
@@ -42,52 +41,19 @@ bot = controller.spawn({
     token: tok.getTok()
 }).startRTM();
 
-library = [], listeners = {};
-
 noun = sys.loadJSON('noun');
 verb = sys.loadJSON('verb');
 adj = sys.loadJSON('adj');
 adv = sys.loadJSON('adv');
 ref = sys.loadJSON('ref');
-libMonsters = sys.loadJSON('monsters');
-linsibMonsters = sys.loadJSON('monsters');
 storage= sys.loadJSON('storage');
 plurals = sys.loadJSON('plurals');
 library = sys.loadJSON('library');
-craftQue = sys.loadJSON('craftQue');
-monsterQue = sys.loadJSON('monsterQue');
 map = new Map('map3', 'buildmap');
 
-
-
-listeners.hello = function(bot, message) {
-	var user = new User(message.user);
-
-	if (user && user.name) {
-	    if (user.name === 'dragon')
-			util.smartReply(message, 'Dragons are ' + sys.libRng(library.dragon) +'!!');
-		
-		else if (user.name === 'maybe' || user.name === 'Maybe')
-			util.smartReply(message, 'https://www.youtube.com/watch?v=fWNaR-rxAic');
-			
-		else
-			util.smartReply(message, sys.libRng(library.hello) + ' ' + user.name + ', you '+ sys.libRng(library.insultAdj) + ' ' + sys.libRng(library.insultNoun) +'!!');
-		
-	} else {
-		util.smartReply(message, sys.libRng(library.hello) + ', you ' + sys.libRng(library.insultAdj) + ' ' + sys.libRng(library.insultNoun) +'!!');
-	}
-}
-
-var setupInstance = new setup();
-//setupInstance.setGenericListeners(controller,new User,util.smartReply, library);
-
-var loadDependantListeners = function() {
-	controller.hears(grammar.parseStringArray(library.hello), 'direct_message,direct_mention,mention', function(bot, message) {
-		listeners.hello(bot, message);
-	});
-}
-
-loadDependantListeners();
+var craftQue = sys.loadJSON('craftQue');
+var setup = new listeners();
+setup.setGenericListeners(controller);
 
 var getItemGuidFromName = function (inventory, name) {
 	for (var i in inventory) 
@@ -97,189 +63,37 @@ var getItemGuidFromName = function (inventory, name) {
 	return null;
 }
 
-
-
-var removeItemDurability = function(inventory, item, reduction) {
-	for (var i in inventory) {
-		if ((item.guid && inventory[i].guid == item.guid) || inventory[i].name == item.name) {
-			inventory[i].procType.durability -= reduction;
-			return inventory[i].procType.durability;
-		} 
-	}
-}
-
 controller.hears(['settings (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
 	var command = message.match[1];
-	var user = new User(message.user);
-	switch (command) {
-		case 'silent':
-			util.smartReply(message, 'A silence falls over the land as you fade away to sleep');
-			user.inactive = true;
-			break;
-			
-		case 'loud':
-			user.inactive = false;
-			util.smartReply(message, 'You wake up from your restless slumber');
-			break;
-			
-		case 'verbose':
-			user.verbose = true;
-			util.smartReply(message, 'You decide to take life as it comes, and begin to see the beauty surrounding you.');
-			break;
-	
-		case 'quick':
-			user.verbose = false;
-			util.smartReply(message, 'You move through life with blinders on, ignoring the mundane, but missing the beauty surrounding you');
-			break;
-			
-	}
-	user.save();
+	util.smartReply(message, new User(message.user).updateSettings(command));
 });
 
-var getCount = function(item) {
-	var count = 1;
-	if (parseInt(item) > 0) {
-		count = parseInt(item);
-		count = count > 0 ? count : 0;
-		var split = item.split(" ");
-		if (split.length > 0) {
-			item = split[1];
-		}
-	}
-	return count;
-}
-
-var addToList = function(lib) {
-	var reply = '';
-	var tempLib =Object.keys(lib)
-	for (var i in tempLib) {
-		reply+= (tempLib[i] + ' - ' + lib[tempLib[i]].cost + ' \r\n');
-	}
-	return reply;
-}
-
-var addToInvList = function(arr) {
-	var reply = '';
-	for (var i in arr) {
-		if(arr[i].count > 0 )
-			reply+= ('*'+arr[i].name + '* - ' + (arr[i].procType ? arr[i].procType.durability : arr[i].count) + ' \r\n');
-	}
-	return reply;
-}
 
 controller.hears(['\\bhelp\\b'], 'direct_message,direct_mention,mention', function(bot, message) {
-
-	var reply = 'After several minutes of contemplation you realize that you could probably:\r\n';
-	reply += '*move* _(u)p_, _(d)own_, _(l)eft_, or _(r)ight_\r\n';
-	reply += '*dig*\r\n';
-	reply += '*chop*\r\n';
-	reply += '*search*,*take*, or *forage*\r\n';
-	reply += '*equip* _something_\r\n';
-	reply += '*eat* *#* _something_\r\n';
-	reply += '*craft* _something_\r\n';
-	reply += '*drop* *#* _something_\r\n';
-	reply += '*find* or *call* _someone_\r\n';
-	reply += '*fight* or *attack* _someone_\r\n';
-	reply += '*insult* _someone_ or _something_\r\n';
-	reply += '*check myself*\r\n';
-	reply += '*check crafts*\r\n';
-	reply += '*check crafts* _something_\r\n';
-	util.smartReply(message, reply);
+	util.smartReply(message, menus.checkHelp());
 });
 
 controller.hears(['check myself'], 'direct_message,direct_mention,mention', function(bot, message) {
-	var user = new User(message.user);	
-
-	var msg = 'You check yourself and find:\r\n';
-	msg += '*health* - ' +user.health+'\r\n';
-	msg += '*hunger* - ' +user.hunger+'\r\n';
-	msg += '*walk distance* - ' +user.walked+'\r\n';
-	msg += '*'+sys.libRng(library.money)+'* - ' +user.money+'\r\n';
-	msg += addToInvList(user.inventory);
-	util.smartReply(message, msg);
+	util.smartReply(message, menus.checkUser(new User(message.user)));
 });
 
 controller.hears(['check inventory'], 'direct_message,direct_mention,mention', function(bot, message) {
-	var user = new User(message.user);	
-
-	var msg = 'You check your inventory and find:\r\n';
-	msg += addToInvList(user.inventory);
-	util.smartReply(message, msg);
+	util.smartReply(message, menus.checkInventory(new User(message.user)));
 });
+
 controller.hears(['check map'], 'direct_message,direct_mention,mention', function(bot, message) {
-	var user = new User(message.user);	
-	var msg = map.printLocalMap(user, 5, true);
-	util.smartReply(message, msg);
+	util.smartReply(message, map.printLocalMap(new User(message.user), 5, true));
 });
-
-/*controller.hears(['check full map'], 'direct_message,direct_mention,mention', function(bot, message) {
-	var user = new User(message.user);	
-	var msg = util.printLocalMap(user, 101);
-	util.smartReply(message, msg);
-});*/
-
-var getCraftingPrintout = function (toShare, i) {
-	var craftItem = Crafts[toShare[i]];
-	var msg = '*'+toShare[i] + (craftItem.output > 1 ? (' x'+craftItem.output ) : '')+'*:\r\n';
-	if (craftItem.procType) {
-		msg += '_gives:_ lvl-'+craftItem.procType.level+' '+craftItem.procType.type+'\r\n';
-	}
-	if (craftItem.procReq) {
-		msg += '_requires:_ lvl-'+craftItem.procReq.level+' '+craftItem.procReq.type+'\r\n';
-	}
-	var ingr = craftItem.recipe.ingredients;
-	if (ingr) {
-		var myIng = Object.keys(ingr);
-		for (var j in myIng) {
-			msg += myIng[j]+'-'+ingr[myIng[j]]+'\r\n';
-		}
-	}
-	return msg
-}
-
-var craftingMenu = function(Title, type, toShare) {
-	var msg = '*_' + Title + ':_*\r\n';
-	for (var i in toShare)
-		if (Crafts[toShare[i]].menu == type)
-			msg += getCraftingPrintout(toShare, i);
-	msg += '\r\n'
-	return msg;
-}
 
 controller.hears(['check crafts(.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
-	var user = new User(message.user);	
     var thing = message.match[1] ? grammar.parseAAn(message.match[1]) : null;
-	var msg = 'From deep within your mind you bring forth the plans for ' + (thing ? thing : '') + ':\r\n';
-	
-	if (thing) {
-		if (Crafts[thing]) {
-			var toShare = thing;
-		} else {
-			msg = 'Sadly you don\'t know if you actually know how to put together a ' + thing;
-		}
-	} else {
-		var toShare = Object.keys(Crafts);
-	}
-	
-	msg += craftingMenu('Ingredients', 'ingredients', toShare);
-	msg += craftingMenu('Tools', 'tool', toShare);
-	msg += craftingMenu('Weapons', 'weapon', toShare);
-	msg += craftingMenu('Crafting', 'crafting', toShare);
-	msg += craftingMenu('Cooking', 'food', toShare);
-		
-	util.smartReply(message, msg);
+	util.smartReply(message, menus.checkCrafts(thing));
 });
 
-
-
-
 controller.hears(['\\blook\\b','\\bmove(.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
-
 	var direction = grammar.parseAAn(message.match[1]);
-	var msg ="";
 	var user = new User(message.user);
-	
-	msg = user.move(direction);
+	var msg = user.move(direction);
 	
 	if (msg.length > 0)
 		util.smartReply(message, msg);
@@ -328,16 +142,6 @@ controller.hears(['\\blook\\b','\\bmove(.*)'], 'direct_message,direct_mention,me
 	util.smartReply(message, msg);
 	user.save();
 });
-
-var getLibThing = function(item, thing) {	
-	if (Crafts[item])
-		return Crafts[item][thing]
-	
-	if (libParts[item])
-		return libParts[item][thing]
-	return 0;
-}
-
 
 controller.hears(['set home'],'direct_message,direct_mention,mention', function(bot, message) {
 	var user = new User(message.user);
@@ -404,14 +208,14 @@ controller.hears(['find (.*)'], 'direct_message,direct_mention,mention', functio
 controller.hears(['equip (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
     var item = grammar.parseAAn(message.match[1]);	
 	var user = new User(message.user);
-	if (invt.getInventoryItemCount(user.inventory, item) > 0) {
+	if (user.inventory.getItemCount(item) > 0) {
 		util.smartReply(message, 'You gracefully equip your ' + item + ' in preparation for battle!');
 		user.equiped = {};
 		user.equiped['weapon'] = item;
-		user.equiped['damage'] = getLibThing(item, 'damage');
-		user.equiped['reusable'] = getLibThing(item, 'reusable');
+		user.equiped['damage'] = util.getLibThing(item, 'damage');
+		user.equiped['reusable'] = util.getLibThing(item, 'reusable');
 		user.equiped['guid'] = getItemGuidFromName(user.inventory, item);
-		var proc = getLibThing(item, 'procType')
+		var proc = util.getLibThing(item, 'procType')
 		if (proc) {
 			user.equiped['procLevel'] = proc.level;
 			user.equiped['procType'] = proc.type;
@@ -425,18 +229,14 @@ controller.hears(['equip (.*)'], 'direct_message,direct_mention,mention', functi
 controller.hears(['drop (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
     var item = grammar.parseAAn(message.match[1]);
 	var user = new User(message.user);
-	var count = getCount(item);
+	var count = util.getCount(item);
 	
-	if (count >= 1 && invt.getInventoryItemCount(user.inventory, item) > 0) {
+	if (count >= 1 && user.inventory.getItemCount(item) > 0) {
 		util.smartReply(message, 'You accidentally drop '+ (count > 1 ? (count +' of your ' + grammar.singularToPlural(item)):('your ' + item )) + ', but thankfully nobody noticed');
 		var guid = getItemGuidFromName(user.inventory, item);
-		invt.transferItem(map.buildAt(user).ground, user.inventory, {name: item, guid: guid, count:count});
+		user.inventory.transferItem(map.buildAt(user).ground, {name: item, guid: guid, count:count});
 		if (user.equiped.guid && user.equiped.guid == guid) {
-			user.equiped = {
-				weapon: 'fist',
-				damage: 1,
-				reusable: true
-			}
+			user.equipFist();
 		}
 		user.save();
 		sys.saveJSON('buildmap', map.build);
@@ -455,15 +255,11 @@ controller.hears(['smash (.*)'], 'direct_message,direct_mention,mention', functi
 			myMap.building = {};
 			sys.saveJSON('buildmap', map.build);
 			
-			if (removeItemDurability(user.inventory,{name:user.equiped.weapon}, sys.rng(4,5)) <= 0) {
+			if (user.inventory.removeItemDurability({name:user.equiped.weapon}, sys.rng(4,5)) <= 0) {
 			
 				util.smartReply(message, 'Oh no! Your ' + user.equiped.weapon + ' was detroyed in the process');	
-				invt.removeFromInventory(user.inventory,{name:user.equiped.weapon, guid:user.equiped.guid, procType: "removed"});
-				user.equiped = {
-					weapon: 'fist',
-					damage: 1,
-					reusable: true
-				}
+				user.inventory.remove({name:user.equiped.weapon, guid:user.equiped.guid, procType: "removed"});
+				user.equipFist();
 			}
 			
 			user.save();
@@ -500,15 +296,11 @@ controller.hears(['fight (.*)','attack (.*)'], 'direct_message,direct_mention,me
 					otherUser = util.createUser(otherUser.id, true);
 				}
 				if (!user.equiped.reusable) {
-					invt.removeFromInventory(user.inventory, {name:user.equiped.weapon, count:1});
+					user.inventory.remove({name:user.equiped.weapon, count:1});
 					
-					if (invt.getInventoryItemCount(user.inventory, user.equiped.weapon) <= 0) {
+					if (user.inventory.getItemCount(user.equiped.weapon) <= 0) {
 						util.smartReply(message, 'Oh no! Youve run out of your last ' + user.equiped.weapon + '!!');
-						user.equiped ={
-							weapon: 'fist',
-							damage: 1,
-							reusable: true
-						};
+						user.equipFist();
 					}
 				}
 
@@ -528,12 +320,12 @@ controller.hears(['\\bcraft (.*)\\b'], 'direct_message,direct_mention,mention', 
 	var craftItem =  Crafts[toCraft];
 	// Check not in river
 	if (map.checkValAt(user, 3) ){
-		util.smartReply(message, 'You find it hard to craft anything in the middle of a river');
+		util.smartReply(message, 'You find it difficult to craft anything in the middle of a river');
 		return 1;
 	}
 	
 	// Check recipie
-	if (!craftItem) {
+	if (!craftItem || !craftItem.recipe) {
 		util.smartReply(message, 'You decide that it probably isn\'t even worth the effort to craft a '+ toCraft + ' and give up');
 		return 1;
 	}
@@ -547,18 +339,22 @@ controller.hears(['\\bcraft (.*)\\b'], 'direct_message,direct_mention,mention', 
 
 	// Check materials
 	var materials = Object.keys(craftItem.recipe.ingredients);
-	var matNeeded = invt.checkCraftInventory(user.inventory, craftItem.recipe.ingredients, toCraft)
+	var matNeeded = user.inventory.checkCrafts(craftItem.recipe.ingredients, toCraft)
 	if (matNeeded) {
 		util.smartReply(message, 'You seem not to have enough ' + grammar.singularToPlural(matNeeded) + ' for a '+ toCraft);
 		return 1;
 	} 
 	
 	// Check processors
-	if (!(!craftItem.procReq || (user.equiped.procLevel >= craftItem.procReq.level && user.equiped.procType == lCrafts[toCraft].procReq.type ) || map.checkBuildMapProc(user,craftItem.procReq.type,craftItem.procReq.level))) {
+	if (craftItem.procReq && !user.checkProc(craftItem) && !map.checkBuildMapProc(user,craftItem.procReq.type,craftItem.procReq.level)) {
 		util.smartReply(message, 'You seem not to have all the processors to make '+ craftItem.recipe.output + ' ' + toCraft);	
 		return 1;
 	}
 	
+	if (craftItem.recipe.time > 1 && craftItem.recipe.procType && mybuilding.procType.inUse) {
+		util.smartReply(message, 'Your ' + mybuilding.building.name + ' seems to be otherwise occupied');
+		return 1;
+	}
 
 	// Add building
 	if (craftItem.size > 0) {
@@ -571,44 +367,34 @@ controller.hears(['\\bcraft (.*)\\b'], 'direct_message,direct_mention,mention', 
 		
 	// Add to crafting que
 	} else if (craftItem.recipe.time > 1) {
-		if (!mybuilding.procType.inUse) {
-			var newCraft = {
-				x: user.x + width,
-				y: user.y + height,
-				message: message,
-				item: {
-					name: toCraft,
-					count: craftItem.recipe.output,
-				},
-				countdown: craftItem.recipe.time * 60
-			}
-			if (craftItem.procType)
-				newCraft.procType = craftItem.procType;
-		    newCraft.durability = -sys.rng(2,3);
-			console.log(newCraft);
-			mybuilding.building.procType.inUse = true;
-			sys.saveJSON('buildmap', map.build);
-			craftQue.push(newCraft);
-		} else {
-			util.smartReply(message, 'Your ' + mybuilding.building.name + ' seems to be in use');
-			return 1;
+		var newCraft = {
+			x: user.x + map.width,
+			y: user.y + map.height,
+			message: message,
+			item: {
+				name: toCraft,
+				count: craftItem.recipe.output,
+			},
+			durability: craftItem.durability,
+			procType: craftItem.procType,
+			countdown: craftItem.recipe.time * 60
 		}
-			
-		
-	} else {
-	
+		mybuilding.building.procType.durability -= sys.rng(2,3);
+		mybuilding.building.procType.inUse = true;
+		sys.saveJSON('buildmap', map.build);
+		craftQue.push(newCraft);
+
 	// Add to inventory
-		invt.addToInventory(user.inventory, {name: toCraft, guid: uuid.v4(), count: craftItem.recipe.output, procType: craftItem.procType});
-	}
+	} else
+		user.inventory.addToInventory( {name: toCraft, guid: uuid.v4(), count: craftItem.recipe.output, procType: craftItem.procType});
 	
 	// Remove equiped processor durability
-	if (craftItem.procReq && (user.equiped.procLevel >= craftItem.procReq.level && user.equiped.procType == craftItem.procReq.type )) {
-		useEquipedItem(user, sys.rng(2,3))
-	} 
+	if (craftItem.procReq && user.checkProc(craftItem))
+		util.smartReply(message, user.useEquipedItem(user, sys.rng(2,3)));
 	
 	// Remove materials from inventory
 	for (var i in materials) 
-		invt.removeFromInventory(user.inventory, {name:materials[i], count:craftItem.recipe.ingredients[materials[i]]});
+		user.inventory.remove({name:materials[i], count:craftItem.recipe.ingredients[materials[i]]});
 	
 	
 	// Reply
@@ -621,20 +407,19 @@ controller.hears(['\\bcraft (.*)\\b'], 'direct_message,direct_mention,mention', 
 });
 
 controller.hears(['\\bsearch\\b','\\bforage\\b', '\\btake\\b'], 'direct_message,direct_mention,mention', function(bot, message) {
-
 	var user = new User(message.user);
-	var myground = map.buildAt(user).ground;
+	var ground = map.buildAt(user).ground;
 	var found = 0;
 	
-	if (myground.length > 0) {
+	if (ground.length > 0) {
 		var addMsg = '';
-		for (var i in myground) {
-			if (myground[i].guid || myground[i].count > 0) {
+		for (var i in ground) {
+			if (ground[i].guid || ground[i].count > 0) {
 				found++;
-				addMsg += myground[i].count + ' ' + (myground[i].count > 1 ? grammar.singularToPlural(myground[i].name) : myground[i].name) + ', ';
+				addMsg += ground[i].count + ' ' + (ground[i].count > 1 ? grammar.singularToPlural(ground[i].name) : ground[i].name) + ', ';
 			}
 		}
-		invt.transferInventory(user.inventory, myground);
+		user.inventory.transfer(ground);
 		if (found >= 1 ) {
 			var msg = 'You scour the ground and gather ' + addMsg;
 			msg = msg.substr(0,msg.length - 2);
@@ -651,57 +436,6 @@ controller.hears(['\\bsearch\\b','\\bforage\\b', '\\btake\\b'], 'direct_message,
 	user.save();
 });
 
-var useEquipedItem  = function(user,damage) {
-	var msg;
-	if (user.equiped.reusable == false) {
-		invt.removeFromInventory(user.inventory, {name: user.equiped.weapon, count:1});
-		if (invt.getInventoryItemCount(user.inventory, user.equiped.weapon) <= 0) {
-			msg = 'Oh no! Youve run out of your last ' + user.equiped.weapon + '!!';
-			user.equiped ={
-				weapon: 'fist',
-				damage: 1,
-				reusable: true
-			};
-		}
-	} else if (removeItemDurability(user.inventory, {name: user.equiped.weapon}, damage) <=0) {
-		util.smartReply(message, 'Oh no! Your ' + user.equiped.weapon + ' was detroyed in the process');
-		invt.removeFromInventory(user.inventory,{name:user.equiped.weapon, guid:user.equiped.guid, procType: "removed"});
-		user.equiped = {
-			weapon: 'fist',
-			damage: 1,
-			reusable: true
-		}
-	}
-	return msg
-}
-
-var checkEquipProc = function(user, type) {
-	return Crafts[user.equiped.weapon] && Crafts[user.equiped.weapon].procType && Crafts[user.equiped.weapon].procType.type == type;
-}
-
-
-/*
-controller.hears(['\\bplant tuber\\b'], 'direct_message,direct_mention,mention', function(bot, message) {
-	var newCraft = {
-		x: user.x + width,
-		y: user.y + height,
-		message: message,
-		item: {
-			name: toCraft,
-			count: libCrafts[toCraft].output,
-		},
-		countdown: libCrafts[toCraft].time * 60
-	}
-	if (libCrafts[toCraft].procType)
-		newCraft.procType = libCrafts[toCraft].procType;
-	newCraft.durability = -sys.rng(2,3);
-	console.log(newCraft);
-	buildmap[getCords(user.y,user.x, height,width)].building.procType.inUse = true;
-	sys.saveJSON('buildmap', map.build);
-	craftQue.push(newCraft);
-}*/
-
-
 controller.hears(['\\bname building (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
     var title = grammar.parseAAn(message.match[1]);
 	var user = new User(message.user);
@@ -715,11 +449,10 @@ controller.hears(['\\bname building (.*)'], 'direct_message,direct_mention,menti
 
 controller.hears(['\\beat (.*)', '\\beat my (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
     var food = grammar.parseAAn(message.match[1]);
+	var count = util.getCount(food);
 	var user = new User(message.user);
-	var count = getCount(food);
 
-
-	util.smartReply(message, User.eatItem(user, food, count));
+	util.smartReply(message, user.eatItem(food, count));
 });
 
 controller.hears(['call me (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
@@ -733,30 +466,5 @@ controller.hears(['call me (.*)'], 'direct_message,direct_mention,mention', func
 });
 
 controller.tick = function() {
-	// Handel craft que
-	for (i in craftQue) {
-		if (craftQue[i].countdown > 0) {
-			if (craftQue[i].countdown % 30 == 0)
-				console.log('processing '+craftQue[i].item.name + '-'+ craftQue[i].countdown +' (' + craftQue[i].y+'-'+craftQue[i].x+')')
-			craftQue[i].countdown--;
-			if (craftQue[i].countdown <= 0) {
-				var mybuild = map.buildAt({y:craftQue[i].y,x:craftQue[i].x});
-				console.log(craftQue[i].item.name + ' finished crafting');
-				util.smartReply(craftQue[i].message, 'Hurray! Your '+ craftQue[i].item.name +' is done');
-				invt.addToInventory(mybuild.ground, craftQue[i].item)
-				if (craftQue[i] && mybuild.building && craftQue[i].durability) {
-					mybuild.building.procType.inUse = false;
-					mybuild.building.procType.durability += craftQue[i].durability;
-					if (mybuild.building.procType.durability <= 0) {
-						util.smartReply(craftQue[i].message, 'Oh no! Your ' + mybuild.building.name + ' was detroyed');	
-						mybuild.building = {};
-					}
-				}
-				
-				sys.saveJSON('buildmap', map.build);
-				craftQue.splice(i, 1);
-			}
-			sys.saveJSON('craftQue',craftQue);
-		}
-	}
-};
+	tick.main(craftQue);
+}

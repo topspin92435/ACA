@@ -43,6 +43,13 @@ module.exports = {
 		}
 		return temp;
 	},
+	parseStringArrayExclusive: function(arr) {
+		var temp = [];
+		for (var i in arr) {
+			temp[i] = '\\b'+arr[i].toLowerCase();
+		}
+		return temp;
+	},
 	singularToPlural: function (str) {
 		if (str) {
 			str = str.trim();

@@ -46263,6 +46263,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"17-35": {
@@ -46276,6 +46279,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"18-35": {
@@ -46289,6 +46295,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"19-35": {
@@ -46302,6 +46311,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"20-35": {
@@ -46315,6 +46327,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"21-35": {
@@ -47606,6 +47621,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"17-36": {
@@ -47619,6 +47637,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"18-36": {
@@ -47632,6 +47653,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"19-36": {
@@ -47645,6 +47669,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"20-36": {
@@ -47658,6 +47685,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"21-36": {
@@ -48953,6 +48983,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"17-37": {
@@ -48966,6 +48999,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"18-37": {
@@ -48979,6 +49015,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"19-37": {
@@ -48992,6 +49031,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"20-37": {
@@ -49005,6 +49047,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"21-37": {
@@ -49018,6 +49063,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"22-37": {
@@ -49031,6 +49079,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"23-37": {
@@ -49044,6 +49095,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"24-37": {
@@ -49057,6 +49111,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"25-37": {
@@ -50284,6 +50341,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"17-38": {
@@ -50297,6 +50357,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"18-38": {
@@ -50310,6 +50373,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"19-38": {
@@ -50323,6 +50389,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"20-38": {
@@ -50336,6 +50405,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"21-38": {
@@ -50349,6 +50421,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"22-38": {
@@ -50362,6 +50437,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"23-38": {
@@ -50375,6 +50453,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"24-38": {
@@ -50388,6 +50469,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"25-38": {
@@ -51615,6 +51699,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"17-39": {
@@ -51628,6 +51715,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"18-39": {
@@ -51641,6 +51731,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"19-39": {
@@ -51654,6 +51747,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"20-39": {
@@ -51667,6 +51763,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"21-39": {
@@ -51680,6 +51779,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"22-39": {
@@ -51693,6 +51795,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"23-39": {
@@ -51706,6 +51811,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"24-39": {
@@ -51719,6 +51827,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"25-39": {
@@ -55819,6 +55930,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"36-42": {
@@ -55832,6 +55946,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"37-42": {
@@ -55845,6 +55962,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"38-42": {
@@ -55858,6 +55978,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"39-42": {
@@ -55871,6 +55994,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"40-42": {
@@ -55884,6 +56010,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"41-42": {
@@ -57132,6 +57261,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"36-43": {
@@ -57145,6 +57277,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"37-43": {
@@ -57158,6 +57293,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"38-43": {
@@ -57171,6 +57309,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"39-43": {
@@ -57184,6 +57325,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"40-43": {
@@ -57197,6 +57341,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"41-43": {
@@ -58453,6 +58600,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"36-44": {
@@ -58466,6 +58616,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"37-44": {
@@ -58473,12 +58626,15 @@
 		"ground": [
 			{
 				"name": "stick",
-				"count": 2
+				"count": 0
 			},
 			{
 				"name": "rock",
-				"count": 2
+				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"38-44": {
@@ -58486,12 +58642,15 @@
 		"ground": [
 			{
 				"name": "stick",
-				"count": 4
+				"count": 0
 			},
 			{
 				"name": "rock",
-				"count": 1
+				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"39-44": {
@@ -58505,6 +58664,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"40-44": {
@@ -58518,6 +58680,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"41-44": {
@@ -59778,6 +59943,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"36-45": {
@@ -59791,6 +59959,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"37-45": {
@@ -59804,6 +59975,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"38-45": {
@@ -59817,6 +59991,9 @@
 				"name": "rock",
 				"count": 0
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"39-45": {
@@ -59830,6 +60007,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"40-45": {
@@ -59843,6 +60023,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"41-45": {
@@ -61117,6 +61300,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"36-46": {
@@ -61130,6 +61316,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"37-46": {
@@ -61143,6 +61332,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"38-46": {
@@ -61156,6 +61348,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"39-46": {
@@ -61169,6 +61364,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"40-46": {
@@ -61182,6 +61380,9 @@
 				"name": "rock",
 				"count": 1
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"41-46": {
@@ -62430,6 +62631,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"36-47": {
@@ -62443,6 +62647,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"37-47": {
@@ -62456,6 +62663,9 @@
 				"name": "rock",
 				"count": 3
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"38-47": {
@@ -62469,6 +62679,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"39-47": {
@@ -62482,6 +62695,9 @@
 				"name": "rock",
 				"count": 2
 			}
+		],
+		"users": [
+			"U1R2XKNKA"
 		]
 	},
 	"40-47": {

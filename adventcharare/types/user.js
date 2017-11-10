@@ -6,7 +6,7 @@ function User(user) {
 		this.setUser(storage[user]);
 	else
 		this.createUser(user);
-}
+};
 
 User.prototype.setUser =  function(user) {
 	this.id = user.id;
@@ -15,13 +15,13 @@ User.prototype.setUser =  function(user) {
 	this.hunger = user.hunger;
 	this.health = user.health;
 	this.walked = user.walked;
-	this.inventory = user.inventory;
+	this.inventory = new Inventory(user.inventory.items);
 	this.verbose = user.verbose;
 	this.money = user.money;
 	this.verbose = user.verbose;
 	this.inactive = user.inactive;
 	this.equiped = user.equiped;
-}
+};
 
 User.prototype.createUser =  function(user) {
 	this.id = user;
@@ -30,19 +30,15 @@ User.prototype.createUser =  function(user) {
 	this.hunger = 100;
 	this.health = 100;
 	this.walked = 0;
-	this.inventory = [];
+	this.inventory = new Inventory();
 	this.verbose = true;
 	this.money = 0;
 	this.verbose = true;
 	this.inactive = false;
-	this.equiped = {
-		weapon: 'fist',
-		damage: 1,
-		reusable: true
-	};
+	this.equipFist();
 	storage[user] = this;
-    util.saveStorage();
-}
+    this.save();
+};
 
 User.prototype.save = function () {
 	storage[this.id] = this;
@@ -71,15 +67,16 @@ User.prototype.move = function(direction) {
 		msg = 'You bump against an invisible wall and grumble bitterly'
 	}
 	return '';
-}
+};
 
-User.prototype.eatItem = function(usr, toEat, cnt) {
+User.prototype.eatItem = function(toEat, cnt) {
 	var otherUser = util.getUserByName(toEat);
 
 	if (otherUser) {
 		otherUser.health += 5;
 		user.health += 5;
-		util.saveStorage();
+		otherUser.save();
+		this.save();
 		return 'You eat '+food+' and find yourself at '+user.health+' health. It tastes like fish';
 	}
 	
@@ -87,7 +84,7 @@ User.prototype.eatItem = function(usr, toEat, cnt) {
 	if (!Crafts[toEat])
 		return 'You find you no longer really feel like eating any ' + grammar.singularToPlural(toEat);
 	
-	if (invt.getInventoryItemCount(usr.inventory, toEat) <= 0)
+	if (this.getInventoryItemCount(this.inventory, toEat) <= 0)
 		return 'Oh no! You\'ve run out of '+ grammar.singularToPlural(toEat);
 	
 	var eating = Crafts[toEat];
@@ -95,7 +92,7 @@ User.prototype.eatItem = function(usr, toEat, cnt) {
 	if (eating.heal == 0)
 		return 'You don\'t quite know how you\'d go about eating ' + (cnt > 1 ? grammar.singularToPlural(toEat) : 'a '+toEat);
 	
-	invt.removeFromInventory(usr.inventory, {name: toEat, count: cnt});
+	this.inventory.remove({name: toEat, count: cnt});
 	var toheal = 0;
 	var msg = '';
 	if (eating.heal)
@@ -110,6 +107,88 @@ User.prototype.eatItem = function(usr, toEat, cnt) {
 	if (usr.health <= 0)
 		msg +='\r\nOh no! Youve killed yourself with your '+(cnt > 1 ? grammar.singularToPlural(toEat) : toEat)+'! You ba$@*&d!';
 	
-	util.saveStorage();
+	this.save();
 	return msg;
+};
+
+User.prototype.updateSettings = function (command) {
+	var msg;
+	switch (command) {
+		case 'silent':
+			msg = 'A silence falls over the land as you fade away to sleep';
+			this.inactive = true;
+			break;
+			
+		case 'loud':
+			user.inactive = false;
+			msg = 'You wake up from your restless slumber';
+			break;
+			
+		case 'verbose':
+			user.verbose = true;
+			msg = 'You decide to take life as it comes, and begin to see the beauty surrounding you.';
+			break;
+	
+		case 'quick':
+			user.verbose = false;
+			msg = 'You move through life with blinders on, ignoring the mundane, but missing the beauty surrounding you';
+			break;
+			
+	}
+	this.save();
+	return msg;
+};
+
+User.prototype.equipFist = function() {
+	this.equiped = {
+		weapon: 'fist',
+		damage: 1,
+		reusable: true
+	}
+};
+
+User.prototype.checkProc = function(tocraft) {
+	return this.equiped.procLevel >= tocraft.procReq.level && this.equiped.procType == tocraft.procReq.type
+};
+
+User.prototype.useEquipedItem  = function(durability) {
+	var msg;
+	if (this.equiped.reusable == false) {
+		this.inventory.remove({name: this.equiped.weapon, count:1});
+		if (this.getInventoryItemCount(this.inventory, this.equiped.weapon) <= 0) {
+			msg = 'Oh no! You\'ve run out of your last ' + this.equiped.weapon;
+			this.equipFist();
+		}
+	} else if (removeItemDurability( {name: this.equiped.weapon}, durability) <=0) {
+		msg='Oh no! Your ' + this.equiped.weapon + ' was detroyed in the process';
+		this.inventory.remove({name:this.equiped.weapon, guid: this.equiped.guid, procType: "removed"});
+		this.equipFist();
+	}
+	return msg
+};
+
+User.prototype.useEquipedItem  = function(damage) {
+	var msg;
+	if (this.equiped.reusable == false) {
+		this.inventory.remove({name: this.equiped.weapon, count:1});
+		if (this.inventory.getItemCount(this.equiped.weapon) <= 0) {
+			msg = 'Oh no! You\'ve run out of your last ' + this.equiped.weapon;
+			this.equipFist();
+		}
+	} else if (this.inventory.removeItemDurability({name: this.equiped.weapon}, damage) <=0) {
+		msg='Oh no! Your ' + this.equiped.weapon + ' was detroyed in the process';
+		this.inventory.remove({name:this.equiped.weapon, guid:this.equiped.guid, procType: "removed"});
+		this.equipFist();
+	}
+	return msg
+}
+
+User.prototype.findUser = function(otherUser) {
+	
+	
+}
+
+User.prototype.findHome = function() {
+	
+
 }

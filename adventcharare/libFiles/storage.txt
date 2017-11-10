@@ -1,12 +1,23 @@
 {
 	"U1R2XKNKA": {
 		"id": "U1R2XKNKA",
-		"x": -13,
-		"y": -23,
+		"x": -5,
+		"y": -13,
 		"hunger": 100,
 		"health": 100,
-		"walked": 10,
-		"inventory": [],
+		"walked": 3,
+		"inventory": {
+			"items": [
+				{
+					"name": "stick",
+					"count": 26
+				},
+				{
+					"name": "rock",
+					"count": 8
+				}
+			]
+		},
 		"verbose": true,
 		"money": 0,
 		"inactive": false,

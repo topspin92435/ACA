@@ -70,9 +70,6 @@ module.exports = function(){
 		}
 		return "";
 	};
-
-	
-
 	
 	module.smartReply = function(message, string) {
 		var user = new User(message.user);
@@ -85,16 +82,39 @@ module.exports = function(){
 		for (var i in storage) {
 			var user = storage[i];	
 			if (user && ((user.slackname && user.slackname.toLowerCase() == name.toLowerCase()) || (user.name && user.name.toLowerCase() == name.toLowerCase())))
-				return user;
+				return new User(user.id);
 			
 		}
 		return null;	
+	};
+
+	
+	module.getCount = function(item) {
+		var count = 1;
+		if (parseInt(item) > 0) {
+			count = parseInt(item);
+			count = count > 0 ? count : 0;
+			var split = item.split(" ");
+			if (split.length > 0) {
+				item = split[1];
+			}
+		}
+		return count;
 	};
 
     module.countup = function(arr, item, val) {
 		val = val ? val : 1;
 		arr[item] = arr[item] ? arr[item] + val: val;
 	};
+	
+	module.getLibThing = function(item, thing) {	
+		if (Crafts[item])
+			return Crafts[item][thing]
+		
+		if (libParts[item])
+			return libParts[item][thing]
+		return 0;
+	}
 
 	return module;
 }

@@ -37,13 +37,13 @@ Map.prototype.terrainAt = function(cord) {
 
 Map.prototype.checkBounds = function(direction, cord) {
 	if (sys.libCheck(library.north, direction)) {
-		return cord.y < height;
+		return cord.y < this.height;
 	} else if (sys.libCheck(library.south, direction) ) {
-		return cord.y > -height;
+		return cord.y > -this.height;
 	} else if (sys.libCheck(library.east, direction) ) {
-		return cord.x < width;
+		return cord.x < this.width;
 	} else if (sys.libCheck(library.west, direction) ) {
-		return cord.x > -width;
+		return cord.x > -this.width;
 	}
 	return true;
 }
@@ -73,11 +73,11 @@ Map.prototype.valAt = function(cord) {
 
 Map.prototype.updateUserMap = function(user, size) {
 	for (var y = size * 2 ; y >= 0; y--) {
-		var yval = (user.y+height+y-size);
+		var yval = (user.y+this.height+y-size);
 		if (yval < 0 || yval > 100)
 			break;
 		for (var x = 0; x < size * 2 + 1; x++) {
-			var xval = (user.x+width+x-size);
+			var xval = (user.x+this.width+x-size);
 			if (xval < 0 || xval > 100)
 				break;
 			var ground = this.build[yval+'-'+xval];
@@ -97,12 +97,12 @@ Map.prototype.printLocalMap = function(user, size, buffer) {
 	}
 	mapStr += '\r\n';
 	for (var y = size * 2 ; y >= 0; y--) {
-		var yval = (user.y+height+y-size);
+		var yval = (user.y+this.height+y-size);
 		if (yval < 0 || yval > 100)
 			break;
 		
 		for (var x = 0; x < size * 2 + 1; x++) {
-			var xval = (user.x+width+x-size);
+			var xval = (user.x+this.width+x-size);
 			if (xval < 0 || xval > 100)
 				break;
 			
@@ -122,7 +122,7 @@ Map.prototype.printLocalMap = function(user, size, buffer) {
 				mapStr += ':unknown:';
 				
 		}
-		if((user.y+height-size+y) >= 0 && (user.y+height-size+y) < 101)
+		if((user.y+this.height-size+y) >= 0 && (user.y+this.height-size+y) < 101)
 			mapStr += '\r\n'
 	}
 	return mapStr;
@@ -132,7 +132,7 @@ Map.prototype.descriptionAt = function(loc) {
 	var msg;
 	switch (this.terrainAt(loc)) {
 		case '0':
-			msg = 'an empty plains.'
+			msg = 'a barren desert.'
 			break;
 			
 		case '1':
@@ -146,10 +146,6 @@ Map.prototype.descriptionAt = function(loc) {
 			
 		case '3':
 			msg = 'a raging river.'
-			break;
-			
-		case '4':
-			msg = 'a barren desert.'
 			break;
 		
 	}
